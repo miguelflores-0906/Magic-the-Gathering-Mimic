@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MTGMimic">
-        <activity android:name=".LoginPageActivity"></activity>
+        <activity android:name=".DeckSocialActivity"></activity>
+        <activity android:name=".UserDecksActivity" />
+        <activity android:name=".UserInventoryActivity" />
+        <activity android:name=".MasterCardlistActivity" />
+        <activity android:name=".LoginPageActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
