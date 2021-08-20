@@ -14,11 +14,9 @@ public class MasterCardlistAdapter
     extends RecyclerView.Adapter<MasterCardlistAdapter.MCLViewHolder> {
 
     private ArrayList<Card> cardArrayList;
-    private Context context;
 
-    public MasterCardlistAdapter(Context context, ArrayList<Card> cardList) {
+    public MasterCardlistAdapter(ArrayList<Card> cardList) {
         this.cardArrayList = cardList;
-        this.context = context;
     }
 
     @Override

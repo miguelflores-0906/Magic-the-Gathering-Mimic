@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="USER'S INVENTORY"
+        android:text="INVENTORY"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="28dp"

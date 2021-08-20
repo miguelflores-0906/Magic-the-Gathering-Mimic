@@ -6,30 +6,36 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_mcardlist"
-        android:text="MASTER CARDLIST"
+        android:id="@+id/tv_userinventory"
+        android:text="USER'S INVENTORY"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textFontWeight="500"
         android:textSize="28dp"
         android:layout_marginTop="30dp"
         />
 
     <EditText
-        android:id="@+id/et_master"
+        android:id="@+id/et_user_inv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:layout_below="@id/tv_mcardlist"/>
+        android:layout_below="@id/tv_userinventory"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rv_cardlist_frag"
-        android:layout_below="@id/et_master"
-        android:layout_marginTop="10dp"
+        android:layout_below="@id/et_user_inv"
+        android:layout_marginTop="20dp"
+        android:id="@+id/rv_userlist"
         />
 
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/design_default_color_primary"
+        android:src="@drawable/ic_add"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="30dp"/>
 
 </RelativeLayout>

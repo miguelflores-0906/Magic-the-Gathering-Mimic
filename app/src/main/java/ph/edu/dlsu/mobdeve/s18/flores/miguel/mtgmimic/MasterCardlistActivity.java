@@ -26,8 +26,8 @@ public class MasterCardlistActivity extends AppCompatActivity {
 
         cardArrayList = CustomDataHelper.loadCards();
 
-        MasterCardlistAdapter mclAdapter = new MasterCardlistAdapter(getApplicationContext(), cardArrayList);
-        binding.rvCardlist.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        binding.rvCardlist.setAdapter(mclAdapter);
+//        MasterCardlistAdapter mclAdapter = new MasterCardlistAdapter(getApplicationContext(), cardArrayList);
+//        binding.rvCardlist.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+//        binding.rvCardlist.setAdapter(mclAdapter);
     }
 }
