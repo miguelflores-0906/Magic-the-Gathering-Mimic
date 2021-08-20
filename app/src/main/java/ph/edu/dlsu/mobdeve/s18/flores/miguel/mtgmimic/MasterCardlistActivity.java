@@ -17,6 +17,11 @@ public class MasterCardlistActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /* try adding these lines
+        binding = ActivityMasterCardlistBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot()); */
+        
+        //delete this line
         setContentView(R.layout.activity_master_cardlist);
 
         cardArrayList = CustomDataHelper.loadCards();
