@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MTGMimic">
-        <activity android:name=".DeckStatActivity"></activity>
+        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".DeckStatActivity" />
         <activity android:name=".DeckDetailsSocialActivity" />
         <activity android:name=".CardStatsActivity" />
         <activity android:name=".CardDetailsActivity" />
@@ -17,14 +20,14 @@
         <activity android:name=".UserDecksActivity" />
         <activity android:name=".UserInventoryActivity" />
         <activity android:name=".MasterCardlistActivity" />
-        <activity android:name=".LoginPageActivity" />
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".LoginPageActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
+        <activity android:name=".MainActivity"/>
     </application>
 
 </manifest>
