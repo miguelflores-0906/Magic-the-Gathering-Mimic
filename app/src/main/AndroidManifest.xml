@@ -17,14 +17,13 @@
         <activity android:name=".UserDecksActivity" />
         <activity android:name=".UserInventoryActivity" />
         <activity android:name=".MasterCardlistActivity" />
-        <activity android:name=".LoginPageActivity">
+        <activity android:name=".LoginPageActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".MainActivity">
         </activity>
     </application>
 

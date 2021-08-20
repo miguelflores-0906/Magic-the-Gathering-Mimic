@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "508159965101",
+    "project_id": "mobdeve-s17-flores-singson",
+    "storage_bucket": "mobdeve-s17-flores-singson.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:508159965101:android:94418d722295f127df9324",
+        "android_client_info": {
+          "package_name": "ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "508159965101-76sa2hvossq1b0da4jucklne111mdul4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwZftq6GK5AnSGsPdhBcOQHkcWhkI27_0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "508159965101-76sa2hvossq1b0da4jucklne111mdul4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
