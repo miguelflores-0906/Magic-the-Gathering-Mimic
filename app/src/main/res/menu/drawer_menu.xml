@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item android:id="@+id/nav_master"
+            android:title="MTG Master Cardlist"/>
+        <item android:id="@+id/nav_inv"
+            android:title="User Inventory"/>
+        <item android:id="@+id/nav_user_deck"
+            android:title="User Decks"/>
+        <item android:id="@+id/nav_deck_social"
+            android:title="Deck Social"/>
+        <item android:id="@+id/nav_tools"
+            android:title="In-game Tools"/>
+
+    </group>
+
+</menu>
