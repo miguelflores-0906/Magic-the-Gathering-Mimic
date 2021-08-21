@@ -92,7 +92,7 @@
         android:id="@+id/fab_dice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_baseline_casino_24"
+        android:background="@drawable/ic_die"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="50dp"

@@ -44,4 +44,9 @@ public class MasterCardlistAdapter
             tv_cardnames = itemView.findViewById(R.id.tv_cardnames);
         }
     }
+
+    public void filterList(ArrayList<Card> filterdList) {
+        cardArrayList = filterdList;
+        notifyDataSetChanged();
+    }
 }

@@ -1,6 +1,8 @@
 package ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class CustomDataHelper {
     public static ArrayList<Card> loadCards() {
@@ -21,7 +23,7 @@ public class CustomDataHelper {
         data.add(new Card(
                 "Professor Onyx",
                 "STX",
-                "Planeswalker"));
+                "Legendary Planeswalker"));
         data.add(new Card(
                 "Ruin Crab",
                 "ZNR",
@@ -41,7 +43,7 @@ public class CustomDataHelper {
         data.add(new Card(
                 "Ashiok, Nightmare Muse",
                 "THB",
-                "Planeswalker"));
+                "Legendary Planeswalker"));
         data.add(new Card(
                 "Pacifism",
                 "IKR",
@@ -54,6 +56,57 @@ public class CustomDataHelper {
                 "The Tarrasque",
                 "AFR",
                 "Legendary Creature"));
+        data.add(new Card(
+                "Island",
+                "AFR",
+                "Land"));
+        data.add(new Card(
+                "Plains",
+                "AFR",
+                "Land"));
+        data.add(new Card(
+                "Mountain",
+                "AFR",
+                "Land"));
+        data.add(new Card(
+                "Swamp",
+                "AFR",
+                "Land"));
+        data.add(new Card(
+                "Forest",
+                "AFR",
+                "Land"));
+        data.add(new Card(
+                "Gigantosaurus",
+                "M19",
+                "Creature"));
+        data.add(new Card(
+                "Ajani, Strength of the Pride",
+                "M20",
+                "Legendary Planeswalker"));
+        data.add(new Card(
+                "Ugin, the Spirit Dragon",
+                "M21",
+                "Legendary Planeswalker"));
+        data.add(new Card(
+                "Teferi, Master of Time",
+                "M21",
+                "Legendary Planeswalker"));
+        data.add(new Card(
+                "Teferi, Time Raveler",
+                "WAR",
+                "Legendary Planeswalker"));
+        data.add(new Card(
+                "Ajani's Pridemate",
+                "M19",
+                "Creature"));
+
+        Collections.sort(data, new Comparator<Card>() {
+            @Override
+            public int compare(Card o1, Card o2) {
+                return o1.getCardName().compareTo(o2.getCardName());
+            }
+        });
 
         return data;
     }
