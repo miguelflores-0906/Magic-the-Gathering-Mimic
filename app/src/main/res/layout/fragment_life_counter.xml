@@ -7,7 +7,7 @@
         android:id="@+id/tv_life"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LIFE COUNTER"
+        android:text="LIFE \n COUNTER"
         android:textAlignment="center"
         android:textSize="50sp"
         android:layout_marginTop="50dp"/>

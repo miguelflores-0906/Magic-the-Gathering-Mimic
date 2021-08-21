@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_tools:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new GameToolsFragment()).commit();
+                        new LifeCounterFragment()).commit();
                 break;
         }
 
