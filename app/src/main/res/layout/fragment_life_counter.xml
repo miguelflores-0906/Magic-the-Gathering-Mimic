@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_life"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LIFE COUNTER"
+        android:textAlignment="center"
+        android:textSize="50sp"
+        android:layout_marginTop="50dp"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_life"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_life"
+        android:gravity="center">
+        <Button
+            android:id="@+id/btn_sub_life"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/ic_subtract"/>
+        <TextView
+            android:id="@+id/tv_ctrL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20"
+            android:textSize="75sp"
+            android:textAlignment="center"
+            android:layout_marginHorizontal="40dp"/>
+        <Button
+            android:id="@+id/btn_add_life"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/ic_add"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:id="@+id/tv_poison"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="POISON COUNTER"
+        android:textAlignment="center"
+        android:textSize="50sp"
+        android:layout_marginTop="50dp"
+        android:layout_below="@id/ll_life"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_poison"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_poison"
+        android:gravity="center">
+        <Button
+            android:id="@+id/btn_sub_pois"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/ic_subtract"/>
+        <TextView
+            android:id="@+id/tv_ctrP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20"
+            android:textSize="75sp"
+            android:textAlignment="center"
+            android:layout_marginHorizontal="40dp"/>
+        <Button
+            android:id="@+id/btn_add_pois"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/ic_add"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_coin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_coin"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="50dp"
+        android:contentDescription="on click changes to coin flip" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_dice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_baseline_casino_24"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="50dp"
+        android:contentDescription="on click change to die roll"/>
+
+
+
+</RelativeLayout>
