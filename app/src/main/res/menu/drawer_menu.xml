@@ -7,16 +7,31 @@
         android:checkableBehavior="single">
 
         <item android:id="@+id/nav_master"
+            android:icon="@drawable/ic_folder"
             android:title="MTG Master Cardlist"/>
         <item android:id="@+id/nav_inv"
+            android:icon="@drawable/ic_folder_user"
             android:title="User Inventory"/>
         <item android:id="@+id/nav_user_deck"
+            android:icon="@drawable/ic_baseline_person_24"
             android:title="User Decks"/>
         <item android:id="@+id/nav_deck_social"
+            android:icon="@drawable/ic_social"
             android:title="Deck Social"/>
         <item android:id="@+id/nav_tools"
+            android:icon="@drawable/ic_tools"
             android:title="In-game Tools"/>
 
     </group>
+
+    <item
+        android:title="Account">
+        <menu>
+            <item
+                android:id="@+id/menu_logout"
+                android:icon="@drawable/ic_logout"
+                android:title="Logout"/>
+        </menu>
+    </item>
 
 </menu>
