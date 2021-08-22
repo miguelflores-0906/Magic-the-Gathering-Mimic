@@ -3,6 +3,11 @@ package ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic;
 public class Card {
     private String cardName, set, type;
 
+    public Card()
+    {
+
+    }
+
     public Card(String cardName, String set, String type) {
         this.cardName = cardName;
         this.set = set;

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic.databinding.FragmentMasterCardlistBinding;
 
-public class MasterCardlistFragment extends Fragment implements MasterCardlistAdapter.ItemClickListener {
+public class    MasterCardlistFragment extends Fragment implements MasterCardlistAdapter.ItemClickListener {
 
     private FragmentMasterCardlistBinding binding;
     private ArrayList<Card> cardArrayList;
@@ -31,6 +31,19 @@ public class MasterCardlistFragment extends Fragment implements MasterCardlistAd
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_master_cardlist, container, false);
 
         cardArrayList = CustomDataHelper.loadCards();
+
+        // initializing cards in db
+//        CardDAO cardDAO = new CardDAOImpl(getContext());
+//        Card card = new Card();
+//        for(int i = 0; i < cardArrayList.size(); i++)
+//        {
+//            card = cardArrayList.get(i);
+//            cardDAO.addCard(card);
+//        }
+
+        //trying to read cards from db, doesn't work yet
+//        CardDAO cardDAO = new CardDAOImpl(getContext());
+//        cardArrayList = cardDAO.getCards();
 
         adapter = new MasterCardlistAdapter(cardArrayList, this);
 
