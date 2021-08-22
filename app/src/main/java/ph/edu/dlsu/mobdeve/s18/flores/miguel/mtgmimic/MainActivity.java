@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -65,6 +66,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_tools:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new LifeCounterFragment()).commit();
+                break;
+            case R.id.menu_logout:
+                Toast.makeText(getApplicationContext(),
+                        "You have successfully logged out",
+                        Toast.LENGTH_SHORT).show();
                 break;
         }
 

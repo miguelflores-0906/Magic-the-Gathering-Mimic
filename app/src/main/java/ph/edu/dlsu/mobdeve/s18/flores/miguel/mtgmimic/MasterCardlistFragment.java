@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic.databinding.FragmentMasterCardlistBinding;
 
-public class MasterCardlistFragment extends Fragment {
+public class MasterCardlistFragment extends Fragment implements MasterCardlistAdapter.ItemClickListener {
 
     private FragmentMasterCardlistBinding binding;
     private ArrayList<Card> cardArrayList;
@@ -31,7 +32,7 @@ public class MasterCardlistFragment extends Fragment {
 
         cardArrayList = CustomDataHelper.loadCards();
 
-        adapter = new MasterCardlistAdapter(cardArrayList);
+        adapter = new MasterCardlistAdapter(cardArrayList, this);
 
         EditText et = view.findViewById(R.id.et_master);
 
@@ -71,4 +72,10 @@ public class MasterCardlistFragment extends Fragment {
         adapter.filterList(filteredList);
     }
 
+    @Override
+    public void onItemClick(Card card) {
+        Toast.makeText(getContext(),
+                "you clicked on " + card.getCardName(),
+                Toast.LENGTH_LONG).show();
+    }
 }

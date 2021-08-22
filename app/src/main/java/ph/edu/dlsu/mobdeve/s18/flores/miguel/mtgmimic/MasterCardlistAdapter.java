@@ -15,8 +15,11 @@ public class MasterCardlistAdapter
 
     private ArrayList<Card> cardArrayList;
 
-    public MasterCardlistAdapter(ArrayList<Card> cardList) {
+    private ItemClickListener clickListener;
+
+    public MasterCardlistAdapter(ArrayList<Card> cardList, ItemClickListener clickListener) {
         this.cardArrayList = cardList;
+        this.clickListener = clickListener;
     }
 
     @Override
@@ -33,6 +36,14 @@ public class MasterCardlistAdapter
     @Override
     public void onBindViewHolder(MasterCardlistAdapter.MCLViewHolder holder, int position) {
         holder.tv_cardnames.setText(cardArrayList.get(position).getCardName());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                clickListener.onItemClick(cardArrayList.get(position));
+            }
+        });
     }
 
 
@@ -48,5 +59,9 @@ public class MasterCardlistAdapter
     public void filterList(ArrayList<Card> filterdList) {
         cardArrayList = filterdList;
         notifyDataSetChanged();
+    }
+
+    public interface ItemClickListener {
+        public void onItemClick(Card card);
     }
 }
