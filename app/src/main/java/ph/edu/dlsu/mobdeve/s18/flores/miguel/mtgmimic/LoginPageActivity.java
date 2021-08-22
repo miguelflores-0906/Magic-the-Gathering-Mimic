@@ -40,6 +40,12 @@ public class LoginPageActivity extends AppCompatActivity {
         password = findViewById(R.id.et_password);
         fAuth = FirebaseAuth.getInstance();
 
+        //goes to the main activity if user is still logged in
+        if(fAuth.getCurrentUser() != null)
+        {
+            startActivity(new Intent(this, MainActivity.class));
+        }
+
         login.setOnClickListener(v ->
         {
             String emailFB = email.getText().toString().trim();

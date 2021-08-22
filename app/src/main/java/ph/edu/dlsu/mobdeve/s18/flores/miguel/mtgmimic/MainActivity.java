@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,9 +15,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +74,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 //                TODO: IMPLEMENT LOGOUT HERE (just put it inside the case, you can remove the toast if you want)
             case R.id.menu_logout:
+                firebaseAuth.signOut();
                 Toast.makeText(getApplicationContext(),
                         "You have successfully logged out",
                         Toast.LENGTH_SHORT).show();
+                Intent logout = new Intent(this, LoginPageActivity.class);
+                startActivity(logout);
                 break;
         }
 
