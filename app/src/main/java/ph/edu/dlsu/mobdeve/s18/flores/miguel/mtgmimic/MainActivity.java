@@ -67,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new LifeCounterFragment()).commit();
                 break;
+
+//                TODO: IMPLEMENT LOGOUT HERE (just put it inside the case, you can remove the toast if you want)
             case R.id.menu_logout:
                 Toast.makeText(getApplicationContext(),
                         "You have successfully logged out",
