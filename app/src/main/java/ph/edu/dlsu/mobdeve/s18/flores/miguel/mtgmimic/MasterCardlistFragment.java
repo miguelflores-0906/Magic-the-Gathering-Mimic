@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic.databinding.FragmentMasterCardlistBinding;
 
-public class    MasterCardlistFragment extends Fragment implements MasterCardlistAdapter.ItemClickListener {
+public class MasterCardlistFragment extends Fragment implements MasterCardlistAdapter.ItemClickListener {
 
     private FragmentMasterCardlistBinding binding;
     private ArrayList<Card> cardArrayList;

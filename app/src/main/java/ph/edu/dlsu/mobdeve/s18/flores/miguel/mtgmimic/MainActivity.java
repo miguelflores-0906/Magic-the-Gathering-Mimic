@@ -61,11 +61,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_user_deck:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new TestFragment()).commit();
+                        new UsersDecksFragment()).commit();
                 break;
             case R.id.nav_deck_social:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new TestFragment2()).commit();
+                        new DeckSocialFragment()).commit();
                 break;
             case R.id.nav_tools:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
