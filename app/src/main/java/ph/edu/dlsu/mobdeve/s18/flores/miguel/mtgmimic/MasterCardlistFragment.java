@@ -1,5 +1,6 @@
 package ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -87,8 +88,10 @@ public class MasterCardlistFragment extends Fragment implements MasterCardlistAd
 
     @Override
     public void onItemClick(Card card) {
-        Toast.makeText(getContext(),
-                "you clicked on " + card.getCardName(),
-                Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(getActivity().getApplicationContext(), CardDetailsActivity.class);
+        intent.putExtra("cardName", card.getCardName());
+        intent.putExtra("cardExp", card.getSet());
+        intent.putExtra("cardType", card.getType());
+        startActivity(intent);
     }
 }

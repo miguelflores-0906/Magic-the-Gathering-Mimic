@@ -54,6 +54,11 @@ public class DeckSocialAdapter extends RecyclerView.Adapter<DeckSocialAdapter.DS
         }
     }
 
+    public void filterList(ArrayList<Deck> filterdList) {
+        deckArrayList = filterdList;
+        notifyDataSetChanged();
+    }
+
     public interface ItemClickListener {
         public void onItemClick(Deck deck);
     }

@@ -21,6 +21,7 @@ public class MasterCardlistDetails extends Fragment {
         TextView type = view.findViewById(R.id.tv_details_type);
 
 
+
         return view;
     }
 }

@@ -1,5 +1,6 @@
 package ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -7,14 +8,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 
 
-public class DeckSocialFragment extends Fragment {
+public class DeckSocialFragment extends Fragment implements DeckSocialAdapter.ItemClickListener {
 
     private ArrayList<Deck> deckArrayList;
     private DeckSocialAdapter adapter;
@@ -29,9 +33,48 @@ public class DeckSocialFragment extends Fragment {
 
         adapter = new DeckSocialAdapter(deckArrayList);
 
+        EditText et = view.findViewById(R.id.et_searchbar_social);
+
         RecyclerView recyclerView = view.findViewById(R.id.rv_dsociallist);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerView.setAdapter(adapter);
+
+        et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
+
         return view;
+    }
+
+    private void filter(String text) {
+        ArrayList<Deck> filteredList = new ArrayList<>();
+
+        for (Deck deck : deckArrayList) {
+            if (deck.getDeckname().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(deck);
+            }
+        }
+
+        adapter.filterList(filteredList);
+    }
+
+    @Override
+    public void onItemClick(Deck deck) {
+        Intent intent = new Intent(getActivity().getApplicationContext(), DeckDetailsSocialActivity.class);
+        intent.putExtra("deckName", deck.getDeckname());
+        startActivity(intent);
     }
 }
