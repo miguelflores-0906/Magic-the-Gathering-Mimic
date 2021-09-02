@@ -25,10 +25,9 @@ public class CardStatsActivity extends AppCompatActivity {
         adapter = new CardStatsAdapter(statsList);
 
         binding = ActivityCardStatsBinding.inflate(getLayoutInflater());
-
-        binding.rvCardstats.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        binding.rvCardstats.setLayoutManager(new LinearLayoutManager(this.getApplicationContext()));
         binding.rvCardstats.setAdapter(adapter);
 
-        setContentView(R.layout.activity_card_stats);
+        setContentView(binding.getRoot());
     }
 }

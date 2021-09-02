@@ -49,5 +49,11 @@ public class CardDetailsActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

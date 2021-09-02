@@ -1,6 +1,7 @@
 package ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -31,7 +32,7 @@ public class UsersDecksFragment extends Fragment {
 
         deckArrayList = DeckHelper.loadDecks();
 
-        adapter = new UserDecklistAdapter(deckArrayList);
+        adapter = new UserDecklistAdapter(deckArrayList, this::onItemClick);
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_userdecks);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -40,9 +41,11 @@ public class UsersDecksFragment extends Fragment {
     }
 
     public void onItemClick(Deck deck) {
-        Toast.makeText(getContext(),
-                "you clicked on " + deck.getDeckname(),
-                Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(getActivity().getApplicationContext(), DeckDetailsActivity.class);
+        intent.putExtra("username", deck.getUsername());
+        intent.putExtra("deckname", deck.getDeckname());
+//        intent.putExtra("decklist", deck.getDecklist());
+        startActivity(intent);
     }
 
 }

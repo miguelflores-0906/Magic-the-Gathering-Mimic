@@ -17,8 +17,9 @@ public class UserDecklistAdapter
     private ArrayList<Deck> deckArrayList;
     private ItemClickListener clickListener;
 
-    public UserDecklistAdapter(ArrayList<Deck> deckArrayList) {
+    public UserDecklistAdapter(ArrayList<Deck> deckArrayList, ItemClickListener clickListener) {
         this.deckArrayList = deckArrayList;
+        this.clickListener = clickListener;
     }
 
     @Override

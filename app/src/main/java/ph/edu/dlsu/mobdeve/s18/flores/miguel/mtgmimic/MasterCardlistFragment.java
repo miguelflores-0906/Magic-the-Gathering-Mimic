@@ -94,4 +94,10 @@ public class MasterCardlistFragment extends Fragment implements MasterCardlistAd
         intent.putExtra("cardType", card.getType());
         startActivity(intent);
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }
