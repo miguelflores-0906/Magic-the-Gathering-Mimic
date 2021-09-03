@@ -31,7 +31,7 @@ public class DeckSocialFragment extends Fragment implements DeckSocialAdapter.It
 
         deckArrayList = DeckHelper.loadDecks();
 
-        adapter = new DeckSocialAdapter(deckArrayList);
+        adapter = new DeckSocialAdapter(deckArrayList, this::onItemClick);
 
         EditText et = view.findViewById(R.id.et_searchbar_social);
 
@@ -75,6 +75,7 @@ public class DeckSocialFragment extends Fragment implements DeckSocialAdapter.It
     public void onItemClick(Deck deck) {
         Intent intent = new Intent(getActivity().getApplicationContext(), DeckDetailsSocialActivity.class);
         intent.putExtra("deckName", deck.getDeckname());
+        intent.putExtra("useranme", deck.getUsername());
         startActivity(intent);
     }
 }

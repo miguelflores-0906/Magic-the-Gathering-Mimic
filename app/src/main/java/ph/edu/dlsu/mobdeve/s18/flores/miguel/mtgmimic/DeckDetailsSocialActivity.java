@@ -12,7 +12,6 @@ public class DeckDetailsSocialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deck_details_social);
 
-        // set details
         TextView deckName = findViewById(R.id.tv_decksocialname);
 
         String name = "temp_name";

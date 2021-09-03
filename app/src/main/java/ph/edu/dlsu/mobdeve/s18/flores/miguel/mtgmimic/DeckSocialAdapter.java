@@ -16,8 +16,9 @@ public class DeckSocialAdapter extends RecyclerView.Adapter<DeckSocialAdapter.DS
 
     private ItemClickListener clickListener;
 
-    public DeckSocialAdapter(ArrayList<Deck> deckList) {
+    public DeckSocialAdapter(ArrayList<Deck> deckList, ItemClickListener clickListener) {
         this.deckArrayList = deckList;
+        this.clickListener = clickListener;
     }
 
     @Override

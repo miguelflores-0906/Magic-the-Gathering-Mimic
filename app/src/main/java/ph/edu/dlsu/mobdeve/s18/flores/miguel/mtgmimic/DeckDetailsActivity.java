@@ -21,6 +21,9 @@ public class DeckDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityDeckDetailsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
 
 
         TextView username = findViewById(R.id.tv_deckdetails_author);
@@ -39,11 +42,14 @@ public class DeckDetailsActivity extends AppCompatActivity {
         username.setText(name);
         deckname.setText(dname);
 
-//        binding = ActivityDeckDetailsBinding.inflate(getLayoutInflater());
-//        adapter = new DeckDetailsAdapter(cardArrayList, this::onClick);
-//
-//
-//        binding.rvDeckdetailscards.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        cardArrayList = CustomDataHelper.loadCards();
+
+
+        adapter = new DeckDetailsAdapter(cardArrayList, this::onClick);
+
+
+        binding.rvDeckdetailscards.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        binding.rvDeckdetailscards.setAdapter(adapter);
 
         FloatingActionButton fab = findViewById(R.id.fab_deckstats);
 
