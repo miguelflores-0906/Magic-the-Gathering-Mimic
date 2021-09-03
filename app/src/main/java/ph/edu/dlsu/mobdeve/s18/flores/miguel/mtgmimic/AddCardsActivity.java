@@ -24,6 +24,8 @@ public class AddCardsActivity extends AppCompatActivity implements MasterCardlis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityAddCardsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         // Recycler View
 
@@ -38,7 +40,8 @@ public class AddCardsActivity extends AppCompatActivity implements MasterCardlis
         Button btn = findViewById(R.id.btn_done_add);
 
         btn.setOnClickListener(v -> {
-            Toast.makeText(getApplicationContext(), "We gotta go back", Toast.LENGTH_LONG).show();
+           Intent intent = new Intent(getApplicationContext(), DeckDetailsActivity.class);
+           startActivity(intent);
         });
 
     }

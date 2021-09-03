@@ -22,7 +22,7 @@ public class DeckDetailsActivity extends AppCompatActivity implements MasterCard
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_deck_details);
 
         TextView username = findViewById(R.id.tv_deckdetails_author);
         TextView deckname = findViewById(R.id.tv_deckdetails_dname);
@@ -52,7 +52,6 @@ public class DeckDetailsActivity extends AppCompatActivity implements MasterCard
         recyclerView.setAdapter(adapter);
 
 
-        // TODO: Change to Deck Stats Activity
         FloatingActionButton fab = findViewById(R.id.fab_deckstats);
 
         fab.setOnClickListener(v -> {
