@@ -1,27 +1,72 @@
 package ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class DeckDetailsSocialActivity extends AppCompatActivity {
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+
+import ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic.databinding.ActivityDeckDetailsBinding;
+
+public class DeckDetailsSocialActivity extends AppCompatActivity implements MasterCardlistAdapter.ItemClickListener {
+
+    private DeckDetailsSocialActivity binding;
+    private ArrayList<Card> cardArrayList;
+    private MasterCardlistAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deck_details_social);
 
-        TextView deckName = findViewById(R.id.tv_decksocialname);
+        TextView username = findViewById(R.id.tv_sdeckdetails_author);
+        TextView deckname = findViewById(R.id.tv_sdeckdetails_dname);
 
         String name = "temp_name";
+        String dname = "temp_dname";
 
         Bundle extras = getIntent().getExtras();
 
+
         if (extras != null) {
-            name = extras.getString("deckName");
+            name = extras.getString("username");
+            dname = extras.getString("deckName");
+//            cardArrayList = extras.get("decklist");
         }
 
-        deckName.setText(name);
+        username.setText(name);
+        deckname.setText(dname);
+
+        // Recycler View
+
+        cardArrayList = CustomDataHelper.loadCards();
+        adapter = new MasterCardlistAdapter(cardArrayList, this);
+
+        RecyclerView recyclerView = findViewById(R.id.rv_sdeckdetailscards);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setAdapter(adapter);
+
+
+        FloatingActionButton fab = findViewById(R.id.fab_deckstats);
+
+        fab.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), DeckStatActivity.class);
+            startActivity(intent);
+        });
+    }
+
+    @Override
+    public void onItemClick(Card card) {
+        Intent intent = new Intent(getApplicationContext(), CardDetailsActivity.class);
+        intent.putExtra("cardName", card.getCardName());
+        intent.putExtra("cardExp", card.getSet());
+        intent.putExtra("cardType", card.getType());
+        startActivity(intent);
     }
 }

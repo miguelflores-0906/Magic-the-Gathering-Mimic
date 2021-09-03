@@ -5,46 +5,100 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DeckDetailsSocialActivity">
-
-    <TextView
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_deckdetails"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_decksocialname"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:text="DECK NAME"
-        android:textAlignment="center"
-        android:layout_margin="40dp"
-        android:textSize="24dp"
+        android:padding="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DECK DETAILS"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:textSize="30sp"/>
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Author: "/>
+            <TextView
+                android:id="@+id/tv_sdeckdetails_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="username_temp"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Deckname: "/>
+            <TextView
+                android:id="@+id/tv_sdeckdetails_dname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="deckname_temp"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:id="@+id/tv_creatures"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cards"
         android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="20sp"
+
+        app:layout_constraintTop_toBottomOf="@+id/ll_deckdetails"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/rv_sdeckdetailscards"
+        app:layout_constraintTop_toBottomOf="@id/tv_creatures"
+        android:layout_marginTop="10dp"
         />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:id="@+id/tv_decksocialdetails"
-        app:layout_constraintTop_toBottomOf="@id/tv_decksocialname"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_margin="40dp"
-        android:background="@drawable/border"
-        android:text="DETAILS"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="24dp"
-        />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="225dp"
-        android:id="@+id/tv_decksocialcomments"
-        app:layout_constraintTop_toBottomOf="@id/tv_decksocialdetails"
-        android:layout_margin="40dp"
+        android:layout_height="150dp"
+        android:id="@+id/tv_comments"
+        app:layout_constraintTop_toBottomOf="@id/rv_sdeckdetailscards"
+        android:layout_marginTop="40dp"
         android:text="Comments"
-        android:textSize="24dp"
-        android:textColor="@color/black"
         android:background="@drawable/border"
-        android:textAlignment="center"/>
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_stats"
+        android:id="@+id/fab_deckstats"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

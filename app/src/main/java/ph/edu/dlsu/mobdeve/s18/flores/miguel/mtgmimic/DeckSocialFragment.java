@@ -75,7 +75,7 @@ public class DeckSocialFragment extends Fragment implements DeckSocialAdapter.It
     public void onItemClick(Deck deck) {
         Intent intent = new Intent(getActivity().getApplicationContext(), DeckDetailsSocialActivity.class);
         intent.putExtra("deckName", deck.getDeckname());
-        intent.putExtra("useranme", deck.getUsername());
+        intent.putExtra("username", deck.getUsername());
         startActivity(intent);
     }
 }
