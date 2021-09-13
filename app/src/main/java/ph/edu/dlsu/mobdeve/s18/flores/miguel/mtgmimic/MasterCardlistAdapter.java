@@ -14,13 +14,18 @@ public class MasterCardlistAdapter
     extends RecyclerView.Adapter<MasterCardlistAdapter.MCLViewHolder> {
 
     private ArrayList<Card> cardArrayList;
-
+    private Context context;
     private ItemClickListener clickListener;
 
-    public MasterCardlistAdapter(ArrayList<Card> cardList, ItemClickListener clickListener) {
-        this.cardArrayList = cardList;
+    public MasterCardlistAdapter(ArrayList<Card> cardArrayList, ItemClickListener clickListener) {
+        this.cardArrayList = cardArrayList;
         this.clickListener = clickListener;
     }
+    public MasterCardlistAdapter(Context context, ArrayList<Card> cardArrayList) {
+        this.context = context;
+        this.cardArrayList = cardArrayList;
+    }
+
 
     @Override
     public int getItemCount() {return cardArrayList.size();}

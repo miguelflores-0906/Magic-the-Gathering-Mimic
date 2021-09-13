@@ -20,6 +20,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     ActivityRegisterBinding binding;
     Button register;
+    EditText username;
     EditText email;
     EditText password;
     TextView loginReg;
@@ -30,18 +31,26 @@ public class RegisterActivity extends AppCompatActivity {
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        username = findViewById(R.id.et_username);
         email = findViewById(R.id.et_emailreg);
         password = findViewById(R.id.et_passwordreg);
         fAuth = FirebaseAuth.getInstance();
 
         register = findViewById(R.id.button_register);
         register.setOnClickListener(v -> {
+            String usernameFB = username.getText().toString().trim();
             String emailFB = email.getText().toString().trim();
             String passwordFB = password.getText().toString().trim();
 
-            if(TextUtils.isEmpty(emailFB))
+            if(TextUtils.isEmpty(usernameFB))
             {
                 Toast.makeText(this, "Username must not be empty.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if(TextUtils.isEmpty(emailFB))
+            {
+                Toast.makeText(this, "Email must not be empty.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -58,8 +67,8 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Account Successfully Created!", Toast.LENGTH_SHORT).show();
                     UserDAO userDAO = new UserDAOImpl();
                     User user = new User();
+                    user.setUsername(usernameFB);
                     user.setEmail(emailFB);
-                    user.setOwnedCards(new ArrayList<Card>());
                     userDAO.addUser(user);
                     Intent reg = new Intent(RegisterActivity.this, MainActivity.class);
                     startActivity(reg);

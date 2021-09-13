@@ -76,4 +76,10 @@ public class DeckDetailsActivity extends AppCompatActivity implements MasterCard
         intent.putExtra("cardType", card.getType());
         startActivity(intent);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        binding = null;
+    }
 }

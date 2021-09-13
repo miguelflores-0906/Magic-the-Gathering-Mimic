@@ -31,28 +31,15 @@ public class MasterCardlistFragment extends Fragment implements MasterCardlistAd
 
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_master_cardlist, container, false);
 
-        cardArrayList = CustomDataHelper.loadCards();
-
-        // initializing cards in db
-//        CardDAO cardDAO = new CardDAOImpl(getContext());
-//        Card card = new Card();
-//        for(int i = 0; i < cardArrayList.size(); i++)
-//        {
-//            card = cardArrayList.get(i);
-//            cardDAO.addCard(card);
-//        }
-
-        //trying to read cards from db, doesn't work yet
-//        CardDAO cardDAO = new CardDAOImpl(getContext());
-//        cardArrayList = cardDAO.getCards();
-
-        adapter = new MasterCardlistAdapter(cardArrayList, this);
+        CardDAO cardDAO = new CardDAOImpl(getContext());
+        adapter = new MasterCardlistAdapter(getContext(), cardDAO.getCards());
 
         EditText et = view.findViewById(R.id.et_master);
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_cardlist_frag);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerView.setAdapter(adapter);
+
 
         et.addTextChangedListener(new TextWatcher() {
             @Override

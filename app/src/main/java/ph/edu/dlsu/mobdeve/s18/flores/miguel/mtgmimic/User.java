@@ -3,6 +3,7 @@ package ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic;
 import java.util.ArrayList;
 
 public class User {
+    private String username;
     private String email;
     private ArrayList<Card> ownedCards;
 
@@ -15,6 +16,7 @@ public class User {
     {
         this.email = email;
         this.ownedCards = ownedCards;
+        this.username = username;
     }
 
     public String getEmail() {
@@ -31,5 +33,13 @@ public class User {
 
     public void setOwnedCards(ArrayList<Card> ownedCards) {
         this.ownedCards = ownedCards;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

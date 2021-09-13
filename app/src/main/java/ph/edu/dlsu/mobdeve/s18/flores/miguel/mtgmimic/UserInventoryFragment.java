@@ -1,5 +1,6 @@
 package ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;

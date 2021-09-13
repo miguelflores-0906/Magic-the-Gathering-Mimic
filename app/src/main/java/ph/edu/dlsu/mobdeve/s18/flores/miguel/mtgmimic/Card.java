@@ -1,6 +1,8 @@
 package ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic;
 
-public class Card {
+import java.io.Serializable;
+
+public class Card implements Serializable {
     private String cardName, set, type;
 
     public Card()

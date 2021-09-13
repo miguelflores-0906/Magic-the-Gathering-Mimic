@@ -32,6 +32,8 @@ public class UsersDecksFragment extends Fragment {
 
         deckArrayList = DeckHelper.loadDecks();
 
+        DeckDAO deckDAO = new DeckDAOImpl(getContext());
+
         adapter = new UserDecklistAdapter(deckArrayList, this::onItemClick);
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_userdecks);

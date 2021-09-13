@@ -8,6 +8,11 @@ public class Deck {
     private String deckname;
     private ArrayList<Card> decklist;
 
+    public Deck()
+    {
+
+    }
+
     public Deck(String username, String deckname) {
         this.username = username;
         this.deckname = deckname;
@@ -29,4 +34,8 @@ public class Deck {
     public void setDeckname(String deckname) {
         this.deckname = deckname;
     }
+
+    public void setUsername(String username){ this.username = username;}
+
+    public void setDecklist(ArrayList<Card> decklist){this.decklist = decklist;}
 }

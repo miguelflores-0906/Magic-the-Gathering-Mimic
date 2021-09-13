@@ -24,6 +24,7 @@ public class AddCardsActivity extends AppCompatActivity implements MasterCardlis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_cards);
         binding = ActivityAddCardsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
