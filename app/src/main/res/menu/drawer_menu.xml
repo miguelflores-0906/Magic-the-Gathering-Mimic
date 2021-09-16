@@ -15,6 +15,9 @@
         <item android:id="@+id/nav_user_deck"
             android:icon="@drawable/ic_baseline_person_24"
             android:title="User Decks"/>
+        <item android:id="@+id/nav_deck_builder"
+            android:icon="@drawable/ic_build"
+            android:title="Deck Builder" />
         <item android:id="@+id/nav_deck_social"
             android:icon="@drawable/ic_social"
             android:title="Deck Social"/>
