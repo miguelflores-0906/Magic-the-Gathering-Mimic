@@ -17,6 +17,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
+
 public class DeckBuilderFragment extends Fragment {
 
     private Button btn_add;
@@ -33,8 +35,8 @@ public class DeckBuilderFragment extends Fragment {
         btn_add = view.findViewById(R.id.btn_deck_builder);
 
         btn_add.setOnClickListener(v -> {
-//            Intent intent = new Intent(getActivity().getApplicationContext(), DeckAddCardActivity.class);
-//            startActivityForResult(intent, 1);
+            Intent intent = new Intent(getActivity().getApplicationContext(), DeckAddCardActivity.class);
+            startActivityForResult(intent, 1);
         });
 
         // TODO: FloatingActionButton on click (save)
@@ -51,5 +53,19 @@ public class DeckBuilderFragment extends Fragment {
         rv.setAdapter(adapter);
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                String cardName = data.getStringExtra("name");
+                int multiverseId = data.getIntExtra("multiverseId", -1);
+                int qty = data.getIntExtra("qty", 0);
+                cardArrayList.add(0, new BuilderCard(multiverseId, cardName, qty));
+            }
+        }
     }
 }
