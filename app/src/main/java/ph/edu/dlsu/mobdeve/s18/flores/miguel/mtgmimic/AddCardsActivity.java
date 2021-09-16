@@ -13,7 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import io.magicthegathering.javasdk.api.SetAPI;
+import io.magicthegathering.javasdk.resource.Card;
+import io.magicthegathering.javasdk.resource.MtgSet;
 import ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic.databinding.ActivityAddCardsBinding;
 
 public class AddCardsActivity extends AppCompatActivity implements MasterCardlistAdapter.ItemClickListener {
@@ -30,7 +34,40 @@ public class AddCardsActivity extends AppCompatActivity implements MasterCardlis
 
         // Recycler View
 
-        cardArrayList = CustomDataHelper.loadCards();
+//        cardArrayList = CustomDataHelper.loadCards();
+
+        // call API to get all standard 2022 cards
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // Adventures in the Forgotten Realms
+                MtgSet afr = SetAPI.getSet("AFR");
+                List<Card> afrCards = afr.getCards();
+
+                // Strixhaven
+                MtgSet stx = SetAPI.getSet("STX");
+                List<Card> stxCards = stx.getCards();
+
+                // Kaldheim
+                MtgSet khm = SetAPI.getSet("KHM");
+                List<Card> khmCards = khm.getCards();
+
+                // Zendikar Rising
+                MtgSet znr = SetAPI.getSet("ZNR");
+                List<Card> znrCards = znr.getCards();
+
+                // Arena Base Set
+                MtgSet anb = SetAPI.getSet("ANB");
+                List<Card> anbCards = anb.getCards();
+
+                cardArrayList.addAll(afrCards);
+                cardArrayList.addAll(stxCards);
+                cardArrayList.addAll(khmCards);
+                cardArrayList.addAll(znrCards);
+                cardArrayList.addAll(anbCards);
+            }
+        }).start();
+
         adapter = new MasterCardlistAdapter(cardArrayList, this);
 
         binding.rvAddCardsList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -48,9 +85,9 @@ public class AddCardsActivity extends AppCompatActivity implements MasterCardlis
     }
 
     @Override
-    public void onItemClick(Card card) {
+    public void onItemClick(io.magicthegathering.javasdk.resource.Card card) {
         Toast.makeText(getApplicationContext(),
-                "You have added " + card.getCardName() + " to your deck",
+                "You have added " + card.getName() + " to your deck",
                 Toast.LENGTH_LONG).show();
     }
 }

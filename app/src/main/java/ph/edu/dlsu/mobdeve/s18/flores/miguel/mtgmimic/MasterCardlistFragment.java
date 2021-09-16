@@ -16,13 +16,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import io.magicthegathering.javasdk.api.CardAPI;
+import io.magicthegathering.javasdk.api.SetAPI;
+import io.magicthegathering.javasdk.resource.Card;
+import io.magicthegathering.javasdk.resource.MtgSet;
 import ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic.databinding.FragmentMasterCardlistBinding;
 
 public class MasterCardlistFragment extends Fragment implements MasterCardlistAdapter.ItemClickListener {
 
     private FragmentMasterCardlistBinding binding;
-    private ArrayList<Card> cardArrayList;
+    private ArrayList<io.magicthegathering.javasdk.resource.Card> cardArrayList = new ArrayList<>();
     private MasterCardlistAdapter adapter;
 
     @Nullable
@@ -31,8 +36,20 @@ public class MasterCardlistFragment extends Fragment implements MasterCardlistAd
 
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_master_cardlist, container, false);
 
-        CardDAO cardDAO = new CardDAOImpl(getContext());
-        adapter = new MasterCardlistAdapter(getContext(), cardDAO.getCards());
+//        magicCards = CardAPI.getAllCards();
+
+//        CardDAO cardDAO = new CardDAOImpl(getContext());
+
+        // call API to get all standard 2022 cards
+        if (cardArrayList.isEmpty()) {
+            getStandardCards();
+        }
+        
+        if (cardArrayList.isEmpty()) {
+            System.out.println("it no work");
+        }
+
+        adapter = new MasterCardlistAdapter(getContext(), cardArrayList);
 
         EditText et = view.findViewById(R.id.et_master);
 
@@ -58,14 +75,24 @@ public class MasterCardlistFragment extends Fragment implements MasterCardlistAd
             }
         });
 
+//        try {
+//            magicCards = CardAPI.getAllCards();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            for (io.magicthegathering.javasdk.resource.Card card : magicCards) {
+//                System.out.println(card.getName());
+//            }
+//        }
+
         return view;
     }
 
     private void filter(String text) {
-        ArrayList<Card> filteredList = new ArrayList<>();
+        ArrayList<io.magicthegathering.javasdk.resource.Card> filteredList = new ArrayList<>();
 
-        for (Card card : cardArrayList) {
-            if (card.getCardName().toLowerCase().contains(text.toLowerCase())) {
+        for (io.magicthegathering.javasdk.resource.Card card : cardArrayList) {
+            if (card.getName().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(card);
             }
         }
@@ -76,9 +103,7 @@ public class MasterCardlistFragment extends Fragment implements MasterCardlistAd
     @Override
     public void onItemClick(Card card) {
         Intent intent = new Intent(getActivity().getApplicationContext(), CardDetailsActivity.class);
-        intent.putExtra("cardName", card.getCardName());
-        intent.putExtra("cardExp", card.getSet());
-        intent.putExtra("cardType", card.getType());
+        intent.putExtra("cardName", card.getName());
         startActivity(intent);
     }
 
@@ -86,5 +111,51 @@ public class MasterCardlistFragment extends Fragment implements MasterCardlistAd
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void getStandardCards() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // Adventures in the Forgotten Realms
+                MtgSet afr = SetAPI.getSet("AFR");
+                System.out.println("AFR loaded");
+                List<Card> afrCards = afr.getCards();
+                System.out.println("all AFR cards loaded");
+
+                // Strixhaven
+                MtgSet stx = SetAPI.getSet("STX");
+                System.out.println("STX loaded");
+                List<Card> stxCards = stx.getCards();
+                System.out.println("all STX cards loaded");
+
+                // Kaldheim
+                MtgSet khm = SetAPI.getSet("KHM");
+                System.out.println("KHM loaded");
+                List<Card> khmCards = khm.getCards();
+                System.out.println("all KHM cards loaded");
+
+                // Zendikar Rising
+                MtgSet znr = SetAPI.getSet("ZNR");
+                System.out.println("ZNR loaded");
+                List<Card> znrCards = znr.getCards();
+                System.out.println("all ZNR cards loaded");
+
+                // Arena Base Set
+                MtgSet anb = SetAPI.getSet("ANB");
+                System.out.println("ANB loaded");
+                List<Card> anbCards = anb.getCards();
+                System.out.println("all ANB cards loaded");
+
+                System.out.println("Loaded all Standard 2022 cards");
+
+                cardArrayList.addAll(afrCards);
+                cardArrayList.addAll(stxCards);
+                cardArrayList.addAll(khmCards);
+                cardArrayList.addAll(znrCards);
+                cardArrayList.addAll(anbCards);
+                System.out.println("Loaded all Standard 2022 cards to Activity");
+            }
+        }).start();
     }
 }

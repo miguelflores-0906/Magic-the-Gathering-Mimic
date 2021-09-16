@@ -9,19 +9,24 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import io.magicthegathering.javasdk.api.CardAPI;
+import io.magicthegathering.javasdk.resource.Card;
 
 public class MasterCardlistAdapter
     extends RecyclerView.Adapter<MasterCardlistAdapter.MCLViewHolder> {
 
-    private ArrayList<Card> cardArrayList;
+    private ArrayList<io.magicthegathering.javasdk.resource.Card> cardArrayList;
     private Context context;
     private ItemClickListener clickListener;
+//    private List<io.magicthegathering.javasdk.resource.Card> magicCards = CardAPI.getAllCards();
 
-    public MasterCardlistAdapter(ArrayList<Card> cardArrayList, ItemClickListener clickListener) {
+    public MasterCardlistAdapter(ArrayList<io.magicthegathering.javasdk.resource.Card> cardArrayList, ItemClickListener clickListener) {
         this.cardArrayList = cardArrayList;
         this.clickListener = clickListener;
     }
-    public MasterCardlistAdapter(Context context, ArrayList<Card> cardArrayList) {
+    public MasterCardlistAdapter(Context context, ArrayList<io.magicthegathering.javasdk.resource.Card> cardArrayList) {
         this.context = context;
         this.cardArrayList = cardArrayList;
     }
@@ -40,10 +45,9 @@ public class MasterCardlistAdapter
 
     @Override
     public void onBindViewHolder(MasterCardlistAdapter.MCLViewHolder holder, int position) {
-        holder.tv_cardnames.setText(cardArrayList.get(position).getCardName());
+        holder.tv_cardnames.setText(cardArrayList.get(position).getName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 clickListener.onItemClick(cardArrayList.get(position));
@@ -61,7 +65,7 @@ public class MasterCardlistAdapter
         }
     }
 
-    public void filterList(ArrayList<Card> filterdList) {
+    public void filterList(ArrayList<io.magicthegathering.javasdk.resource.Card> filterdList) {
         cardArrayList = filterdList;
         notifyDataSetChanged();
     }

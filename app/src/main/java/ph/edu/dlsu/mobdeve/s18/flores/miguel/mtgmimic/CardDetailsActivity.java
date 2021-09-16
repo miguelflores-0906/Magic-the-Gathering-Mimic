@@ -33,8 +33,6 @@ public class CardDetailsActivity extends AppCompatActivity {
 
         if (extras != null) {
             name = extras.getString("cardName");
-            expansion = extras.getString("cardExp");
-            type = extras.getString("cardType");
         }
 
         cardName.setText(name);
