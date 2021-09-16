@@ -30,9 +30,9 @@ public class UsersDecksFragment extends Fragment {
 
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_users_decks, container, false);
 
-        deckArrayList = DeckHelper.loadDecks();
-
         DeckDAO deckDAO = new DeckDAOImpl(getContext());
+
+        deckArrayList = DeckHelper.loadDecks();
 
         adapter = new UserDecklistAdapter(deckArrayList, this::onItemClick);
 

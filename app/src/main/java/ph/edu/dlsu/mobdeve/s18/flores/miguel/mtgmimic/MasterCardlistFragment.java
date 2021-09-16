@@ -48,7 +48,8 @@ public class MasterCardlistFragment extends Fragment implements MasterCardlistAd
             System.out.println("it no work");
         }
 
-        adapter = new MasterCardlistAdapter(getContext(), cardArrayList);
+        adapter = new MasterCardlistAdapter(cardArrayList, this::onItemClick);
+
         EditText et = view.findViewById(R.id.et_master);
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_cardlist_frag);
@@ -101,8 +102,10 @@ public class MasterCardlistFragment extends Fragment implements MasterCardlistAd
 
     @Override
     public void onItemClick(Card card) {
-        Intent intent = new Intent(getActivity().getApplicationContext(), CardDetailsActivity.class);
+        Intent intent = new Intent(getContext(), CardDetailsActivity.class);
         intent.putExtra("cardName", card.getName());
+        intent.putExtra("expansion", card.getSetName());
+        intent.putExtra("type", card.getType());
         startActivity(intent);
     }
 
