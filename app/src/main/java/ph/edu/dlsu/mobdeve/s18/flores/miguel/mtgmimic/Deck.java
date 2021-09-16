@@ -16,7 +16,8 @@ public class Deck {
 
     }
 
-    public Deck(String username, String deckname, ArrayList<Card> decklist) {
+    public Deck(String username, String deckname)
+    {
         this.username = username;
         this.deckname = deckname;
     }

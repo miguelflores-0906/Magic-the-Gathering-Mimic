@@ -20,6 +20,7 @@ import io.magicthegathering.javasdk.resource.MtgSet;
 import ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic.databinding.ActivityDeckDetailsBinding;
 
 public class DeckDetailsActivity extends AppCompatActivity implements MasterCardlistAdapter.ItemClickListener {
+    private ActivityDeckDetailsBinding binding;
     private ArrayList<Card> cardArrayList;
     private MasterCardlistAdapter adapter;
 

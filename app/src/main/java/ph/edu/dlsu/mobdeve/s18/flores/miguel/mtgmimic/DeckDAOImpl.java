@@ -30,9 +30,6 @@ public class DeckDAOImpl implements DeckDAO{
     @Override
     public long addDeck(Deck deck) {
         final long[] result = {-1};
-        final String[] key = new String[1];
-        key[0] = myRef.push().getKey();
-        deck.setKey(key[0]);
         myRef.push().setValue(deck, new DatabaseReference.CompletionListener() {
 
             @Override

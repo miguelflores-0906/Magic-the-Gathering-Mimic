@@ -8,63 +8,51 @@ public class DeckHelper {
 
         data.add(new Deck(
                 "Narwhal_",
-                "Grixis Control",
-                CustomDataHelper.loadCards()
+                "Grixis Control"
         ));
         data.add(new Deck(
                 "Narwhal_",
-                "Mono Green Stompy",
-                CustomDataHelper.loadCards()
+                "Mono Green Stompy"
         ));
         data.add(new Deck(
                 "Narwhal_",
-                "Abzan Dungeon Crawl",
-                CustomDataHelper.loadCards()
+                "Abzan Dungeon Crawl"
         ));
         data.add(new Deck(
                 "Narwhal_",
-                "Izzet Spells",
-                CustomDataHelper.loadCards()
+                "Izzet Spells"
         ));
         data.add(new Deck(
                 "Narwhal_",
-                "Dimir Mill",
-                CustomDataHelper.loadCards()
+                "Dimir Mill"
         ));
         data.add(new Deck(
                 "Narwhal_",
-                "Sphynx Tutelage Mill",
-                CustomDataHelper.loadCards()
+                "Sphynx Tutelage Mill"
         ));
         data.add(new Deck(
                 "Narwhal_",
-                "Selesnya Cats Tribal",
-                CustomDataHelper.loadCards()
+                "Selesnya Cats Tribal"
         ));
         data.add(new Deck(
                 "Narwhal_",
-                "Mardu Goblins",
-                CustomDataHelper.loadCards()
+                "Mardu Goblins"
         ));
         data.add(new Deck(
                 "Narwhal_",
-                "Orzhov Clerics",
-                CustomDataHelper.loadCards()
+                "Orzhov Clerics"
         ));
         data.add(new Deck(
                 "Narwhal_",
-                "Mono Black Reanimator",
-                CustomDataHelper.loadCards()
+                "Mono Black Reanimator"
         ));
         data.add(new Deck(
                 "Narwhal_",
-                "Colorless Myr",
-                CustomDataHelper.loadCards()
+                "Colorless Myr"
         ));
         data.add(new Deck(
                 "Narwhal_",
-                "Ugin lol",
-                CustomDataHelper.loadCards()
+                "Ugin lol"
         ));
 
         return data;
