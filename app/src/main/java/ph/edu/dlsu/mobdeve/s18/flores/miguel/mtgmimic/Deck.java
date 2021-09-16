@@ -8,6 +8,7 @@ public class Deck {
 
     private String username;
     private String deckname;
+
     private ArrayList<io.magicthegathering.javasdk.resource.Card> decklist;
 
     public Deck()
@@ -15,7 +16,7 @@ public class Deck {
 
     }
 
-    public Deck(String username, String deckname) {
+    public Deck(String username, String deckname, ArrayList<Card> decklist) {
         this.username = username;
         this.deckname = deckname;
     }

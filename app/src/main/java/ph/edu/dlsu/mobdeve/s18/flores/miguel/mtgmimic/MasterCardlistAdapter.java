@@ -17,6 +17,7 @@ import io.magicthegathering.javasdk.resource.Card;
 public class MasterCardlistAdapter
     extends RecyclerView.Adapter<MasterCardlistAdapter.MCLViewHolder> {
 
+
     private ArrayList<io.magicthegathering.javasdk.resource.Card> cardArrayList;
     private Context context;
     private ItemClickListener clickListener;

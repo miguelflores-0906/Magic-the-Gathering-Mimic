@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,21 +25,19 @@ import io.magicthegathering.javasdk.resource.Card;
 import io.magicthegathering.javasdk.resource.MtgSet;
 import ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic.databinding.FragmentMasterCardlistBinding;
 
+
 public class MasterCardlistFragment extends Fragment implements MasterCardlistAdapter.ItemClickListener {
 
     private FragmentMasterCardlistBinding binding;
     private ArrayList<io.magicthegathering.javasdk.resource.Card> cardArrayList = new ArrayList<>();
     private MasterCardlistAdapter adapter;
+    private List<io.magicthegathering.javasdk.resource.Card> cardList;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_master_cardlist, container, false);
-
-//        magicCards = CardAPI.getAllCards();
-
-//        CardDAO cardDAO = new CardDAOImpl(getContext());
 
         // call API to get all standard 2022 cards
         if (cardArrayList.isEmpty()) {
@@ -56,6 +55,7 @@ public class MasterCardlistFragment extends Fragment implements MasterCardlistAd
         RecyclerView recyclerView = view.findViewById(R.id.rv_cardlist_frag);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerView.setAdapter(adapter);
+
 
 
         et.addTextChangedListener(new TextWatcher() {
