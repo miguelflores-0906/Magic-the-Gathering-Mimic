@@ -71,6 +71,10 @@ public class MasterCardlistAdapter
         notifyDataSetChanged();
     }
 
+    public void initialListUpdate() {
+        notifyDataSetChanged();
+    }
+
     public interface ItemClickListener {
         public void onItemClick(Card card);
     }

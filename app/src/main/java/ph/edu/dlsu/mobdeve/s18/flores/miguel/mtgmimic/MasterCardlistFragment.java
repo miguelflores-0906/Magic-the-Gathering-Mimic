@@ -49,6 +49,11 @@ public class MasterCardlistFragment extends Fragment implements MasterCardlistAd
         }
 
         adapter = new MasterCardlistAdapter(getContext(), cardArrayList);
+
+        if (!cardArrayList.isEmpty()) {
+            adapter.initialListUpdate();
+        }
+
         EditText et = view.findViewById(R.id.et_master);
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_cardlist_frag);
@@ -116,45 +121,23 @@ public class MasterCardlistFragment extends Fragment implements MasterCardlistAd
         new Thread(new Runnable() {
             @Override
             public void run() {
+
                 // Adventures in the Forgotten Realms
                 MtgSet afr = SetAPI.getSet("AFR");
                 System.out.println("AFR loaded");
                 List<Card> afrCards = afr.getCards();
+
                 System.out.println("all AFR cards loaded");
-
-                // Strixhaven
-                MtgSet stx = SetAPI.getSet("STX");
-                System.out.println("STX loaded");
-                List<Card> stxCards = stx.getCards();
-                System.out.println("all STX cards loaded");
-
-                // Kaldheim
-                MtgSet khm = SetAPI.getSet("KHM");
-                System.out.println("KHM loaded");
-                List<Card> khmCards = khm.getCards();
-                System.out.println("all KHM cards loaded");
-
-                // Zendikar Rising
-                MtgSet znr = SetAPI.getSet("ZNR");
-                System.out.println("ZNR loaded");
-                List<Card> znrCards = znr.getCards();
-                System.out.println("all ZNR cards loaded");
-
-                // Arena Base Set
-                MtgSet anb = SetAPI.getSet("ANB");
-                System.out.println("ANB loaded");
-                List<Card> anbCards = anb.getCards();
-                System.out.println("all ANB cards loaded");
-
-                System.out.println("Loaded all Standard 2022 cards");
-
                 cardArrayList.addAll(afrCards);
-                cardArrayList.addAll(stxCards);
-                cardArrayList.addAll(khmCards);
-                cardArrayList.addAll(znrCards);
-                cardArrayList.addAll(anbCards);
-                System.out.println("Loaded all Standard 2022 cards to Activity");
+
+                System.out.println("Loaded all cards to Activity");
             }
         }).start();
+
+        if (!cardArrayList.isEmpty()) {
+            Toast.makeText(getActivity().getApplicationContext(),
+                    "All cards from AFR have loaded",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 }
