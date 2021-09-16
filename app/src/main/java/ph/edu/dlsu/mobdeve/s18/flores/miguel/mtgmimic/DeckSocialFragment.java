@@ -17,6 +17,8 @@ import android.widget.EditText;
 
 import java.util.ArrayList;
 
+import io.magicthegathering.javasdk.api.CardAPI;
+
 
 public class DeckSocialFragment extends Fragment implements DeckSocialAdapter.ItemClickListener {
 
@@ -28,8 +30,6 @@ public class DeckSocialFragment extends Fragment implements DeckSocialAdapter.It
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_deck_social, container, false);
-
-        deckArrayList = DeckHelper.loadDecks();
 
         adapter = new DeckSocialAdapter(deckArrayList, this::onItemClick);
 

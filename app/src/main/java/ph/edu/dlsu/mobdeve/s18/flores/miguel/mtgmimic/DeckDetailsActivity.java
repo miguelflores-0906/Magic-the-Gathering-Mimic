@@ -20,7 +20,6 @@ import io.magicthegathering.javasdk.resource.MtgSet;
 import ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic.databinding.ActivityDeckDetailsBinding;
 
 public class DeckDetailsActivity extends AppCompatActivity implements MasterCardlistAdapter.ItemClickListener {
-    private ActivityDeckDetailsBinding binding;
     private ArrayList<Card> cardArrayList;
     private MasterCardlistAdapter adapter;
 
@@ -41,7 +40,6 @@ public class DeckDetailsActivity extends AppCompatActivity implements MasterCard
         if (extras != null) {
             name = extras.getString("username");
             dname = extras.getString("deckname");
-//            cardArrayList = extras.get("decklist");
         }
 
         username.setText(name);

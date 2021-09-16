@@ -2,11 +2,13 @@ package ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic;
 
 import java.util.ArrayList;
 
+import io.magicthegathering.javasdk.resource.Card;
+
 public class Deck {
 
     private String username;
     private String deckname;
-    private ArrayList<Card> decklist;
+    private ArrayList<io.magicthegathering.javasdk.resource.Card> decklist;
 
     public Deck()
     {
@@ -16,7 +18,12 @@ public class Deck {
     public Deck(String username, String deckname) {
         this.username = username;
         this.deckname = deckname;
-        this.decklist = CustomDataHelper.loadCards();
+    }
+
+    public Deck(String username, String deckname, ArrayList<io.magicthegathering.javasdk.resource.Card> decklist) {
+        this.username = username;
+        this.deckname = deckname;
+        this.decklist = decklist;
     }
 
     public String getUsername() {
@@ -27,7 +34,7 @@ public class Deck {
         return deckname;
     }
 
-    public ArrayList<Card> getDecklist() {
+    public ArrayList<io.magicthegathering.javasdk.resource.Card> getDecklist() {
         return decklist;
     }
 
