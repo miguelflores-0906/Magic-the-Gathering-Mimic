@@ -6,10 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".DeckDetailsActivity">
 
+    <Button
+        android:id="@+id/btn_add_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Card"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/ll_deckdetails"
+        app:layout_constraintHorizontal_bias="0.95"
+        android:background="@color/design_default_color_primary"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white"/>
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/ll_deckdetails"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_add_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
@@ -55,8 +69,6 @@
                 android:text="deckname_temp"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-
-
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <TextView
@@ -77,16 +89,6 @@
         android:id="@+id/rv_deckdetailscards"
         app:layout_constraintTop_toBottomOf="@id/tv_creatures"
         android:layout_marginTop="10dp"
-        />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_margin="20dp"
-        android:id="@+id/fab_add_cards"
-        android:src="@drawable/ic_add"
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

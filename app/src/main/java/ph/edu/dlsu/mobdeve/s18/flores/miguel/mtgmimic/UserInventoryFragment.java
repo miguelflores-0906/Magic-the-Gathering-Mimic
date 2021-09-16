@@ -17,9 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import io.magicthegathering.javasdk.resource.Card;
+
 public class UserInventoryFragment extends Fragment implements MasterCardlistAdapter.ItemClickListener {
 
-    private ArrayList<Card> cardArrayList;
+    private ArrayList<io.magicthegathering.javasdk.resource.Card> cardArrayList;
     private MasterCardlistAdapter adapter;
 
     @Nullable
@@ -28,7 +30,7 @@ public class UserInventoryFragment extends Fragment implements MasterCardlistAda
 
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_user_inv, container, false);
 
-        cardArrayList = CustomDataHelper.loadCards();
+//        cardArrayList = CustomDataHelper.loadCards();
 
         CardDAO cardDAO = new CardDAOImpl(getContext());
 
@@ -62,19 +64,17 @@ public class UserInventoryFragment extends Fragment implements MasterCardlistAda
     }
 
     @Override
-    public void onItemClick(Card card) {
+    public void onItemClick(io.magicthegathering.javasdk.resource.Card card) {
         Intent intent = new Intent(getActivity().getApplicationContext(), CardDetailsActivity.class);
-        intent.putExtra("cardName", card.getCardName());
-        intent.putExtra("cardExp", card.getSet());
-        intent.putExtra("cardType", card.getType());
+        intent.putExtra("cardName", card.getName());
         startActivity(intent);
     }
 
     private void filter(String text) {
         ArrayList<Card> filteredList = new ArrayList<>();
 
-        for (Card card : cardArrayList) {
-            if (card.getCardName().toLowerCase().contains(text.toLowerCase())) {
+        for (io.magicthegathering.javasdk.resource.Card card : cardArrayList) {
+            if (card.getName().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(card);
             }
         }
