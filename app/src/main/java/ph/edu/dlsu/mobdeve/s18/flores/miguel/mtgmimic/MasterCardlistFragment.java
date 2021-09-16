@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +17,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic.databinding.FragmentMasterCardlistBinding;
+
 
 public class MasterCardlistFragment extends Fragment implements MasterCardlistAdapter.ItemClickListener {
 
     private FragmentMasterCardlistBinding binding;
     private ArrayList<Card> cardArrayList;
     private MasterCardlistAdapter adapter;
+    private List<io.magicthegathering.javasdk.resource.Card> cardList;
 
     @Nullable
     @Override
@@ -32,13 +36,26 @@ public class MasterCardlistFragment extends Fragment implements MasterCardlistAd
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_master_cardlist, container, false);
 
         CardDAO cardDAO = new CardDAOImpl(getContext());
-        adapter = new MasterCardlistAdapter(getContext(), cardDAO.getCards());
+//        cardList = CardAPI.getAllCards();
+//        for(int i = 0; i < cardList.size(); i++)
+//        {
+//            cardArrayList.get(i).setCardName(cardList.get(i).getName());
+//            cardArrayList.get(i).setSet(cardList.get(i).getSetName());
+//            cardArrayList.get(i).setType(cardList.get(i).getType());
+//            cardArrayList.get(i).setRarity(cardList.get(i).getRarity());
+//        }
+
+       adapter = new MasterCardlistAdapter(getContext(), cardDAO.getCards());
+//        adapter = new MasterCardlistAdapter(cardArrayList, this);
+
+
 
         EditText et = view.findViewById(R.id.et_master);
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_cardlist_frag);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerView.setAdapter(adapter);
+
 
 
         et.addTextChangedListener(new TextWatcher() {

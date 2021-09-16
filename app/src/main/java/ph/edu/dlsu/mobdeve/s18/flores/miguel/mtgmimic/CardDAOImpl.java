@@ -1,6 +1,7 @@
 package ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic;
 
 import android.content.Context;
+import android.nfc.Tag;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,6 +18,7 @@ public class CardDAOImpl implements CardDAO{
     private final String PATH = "cards";
     private FirebaseDatabase db = FirebaseDatabase.getInstance("https://mobdeve-s17-flores-singson-default-rtdb.asia-southeast1.firebasedatabase.app/");
     private DatabaseReference myRef = db.getReference(PATH);
+
     public CardDAOImpl()
     {
 
@@ -29,6 +31,9 @@ public class CardDAOImpl implements CardDAO{
     @Override
     public long addCard(Card card) {
         final long[] result = {-1};
+        final String[] key = new String[1];
+        key[0] = myRef.push().getKey();
+        card.setKey(key[0]);
         myRef.push().setValue(card, new DatabaseReference.CompletionListener() {
 
             @Override
@@ -48,6 +53,7 @@ public class CardDAOImpl implements CardDAO{
         return result[0];
     }
 
+
     @Override
     public ArrayList<Card> getCards() {
         ArrayList<Card> result = new ArrayList<>();
@@ -63,16 +69,21 @@ public class CardDAOImpl implements CardDAO{
                     card.setType(data.child("type").getValue(String.class));
 
                     result.add(card);
+                    Log.d("Tag", "yes load work");
+                    Log.d("Cards", "Card: " + result.get(0).getCardName());
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-
+            Log.e("Tag", "no card load doesnt work");
             }
+
+
         });
 
         return result;
     }
+
 }
 

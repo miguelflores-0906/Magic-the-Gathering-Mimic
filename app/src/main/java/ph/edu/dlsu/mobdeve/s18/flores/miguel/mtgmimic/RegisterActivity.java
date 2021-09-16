@@ -71,6 +71,9 @@ public class RegisterActivity extends AppCompatActivity {
                     user.setEmail(emailFB);
                     userDAO.addUser(user);
                     Intent reg = new Intent(RegisterActivity.this, MainActivity.class);
+                    reg.putExtra("username", user.getUsername());
+                    reg.putExtra("email", user.getEmail());
+                    reg.putExtra("key", user.getKey());
                     startActivity(reg);
                 }
                 else

@@ -35,7 +35,7 @@ public class DeckDetailsActivity extends AppCompatActivity implements MasterCard
 
         if (extras != null) {
             name = extras.getString("username");
-            dname = extras.getString("deckName");
+            dname = extras.getString("deckname");
 //            cardArrayList = extras.get("decklist");
         }
 

@@ -13,6 +13,8 @@ import java.util.ArrayList;
 public class MasterCardlistAdapter
     extends RecyclerView.Adapter<MasterCardlistAdapter.MCLViewHolder> {
 
+
+
     private ArrayList<Card> cardArrayList;
     private Context context;
     private ItemClickListener clickListener;
