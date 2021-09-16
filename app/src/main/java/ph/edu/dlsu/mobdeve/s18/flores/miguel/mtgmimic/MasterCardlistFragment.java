@@ -106,6 +106,9 @@ public class MasterCardlistFragment extends Fragment implements MasterCardlistAd
         intent.putExtra("cardName", card.getName());
         intent.putExtra("expansion", card.getSetName());
         intent.putExtra("type", card.getType());
+        intent.putExtra("text", card.getText());
+        intent.putExtra("imageUrl", card.getImageUrl());
+        intent.putExtra("manaCost", card.getManaCost());
         startActivity(intent);
     }
 
