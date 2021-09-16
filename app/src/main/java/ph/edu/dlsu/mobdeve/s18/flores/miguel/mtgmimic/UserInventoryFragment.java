@@ -32,6 +32,8 @@ public class UserInventoryFragment extends Fragment implements MasterCardlistAda
 
 //        cardArrayList = CustomDataHelper.loadCards();
 
+        CardDAO cardDAO = new CardDAOImpl(getContext());
+
         adapter = new MasterCardlistAdapter(cardArrayList, this);
 
         EditText et = view.findViewById(R.id.et_user_inv);

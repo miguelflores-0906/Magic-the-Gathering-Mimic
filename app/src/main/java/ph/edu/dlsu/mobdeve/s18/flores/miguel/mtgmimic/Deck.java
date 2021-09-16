@@ -7,13 +7,22 @@ public class Deck {
     private String username;
     private String deckname;
     private ArrayList<Card> decklist;
+    private String key;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public Deck()
     {
 
     }
 
-    public Deck(String username, String deckname) {
+    public Deck(String username, String deckname, ArrayList<Card> decklist) {
         this.username = username;
         this.deckname = deckname;
         this.decklist = CustomDataHelper.loadCards();
