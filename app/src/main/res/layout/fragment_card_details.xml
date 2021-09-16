@@ -63,6 +63,21 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mana Cost: "/>
+            <TextView
+                android:id="@+id/tv_card_manacost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="temp_mana"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -91,6 +106,23 @@
                 android:layout_height="wrap_content"
                 android:text="Legendary Planeswalker"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Text: "/>
+            <TextView
+                android:id="@+id/tv_card_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="temp_text"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
