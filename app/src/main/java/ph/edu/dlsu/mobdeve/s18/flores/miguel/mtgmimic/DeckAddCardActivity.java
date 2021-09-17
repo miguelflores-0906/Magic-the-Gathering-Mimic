@@ -55,6 +55,9 @@ public class DeckAddCardActivity extends AppCompatActivity implements DeckAddAda
             if (TextUtils.isEmpty(qtyEt.getText().toString())) {
                 Toast.makeText(this, "Please enter a qty", Toast.LENGTH_SHORT).show();
             }
+            else if(name == null) {
+                Toast.makeText(this, "Please select a card", Toast.LENGTH_SHORT).show();
+            }
             else {
                 Intent intent = new Intent();
                 intent.putExtra("name", name);
