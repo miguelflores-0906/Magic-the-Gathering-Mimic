@@ -1,6 +1,7 @@
 package ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -12,8 +13,7 @@ import java.util.ArrayList;
 
 import io.magicthegathering.javasdk.resource.Card;
 
-public class DeckAddAdapter
-                extends RecyclerView.Adapter<DeckAddAdapter.DeckAddHolder> {
+public class DeckAddAdapter extends RecyclerView.Adapter<DeckAddAdapter.DeckAddHolder> {
 
     private Context context;
     private ArrayList<Card> cardArrayList;
@@ -25,10 +25,13 @@ public class DeckAddAdapter
         this.listener = listener;
     }
 
-    @NonNull
+
     @Override
-    public DeckAddHolder onCreateViewHolder(@NonNull  ViewGroup parent, int viewType) {
-        return null;
+    public DeckAddAdapter.DeckAddHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cards, parent, false);
+        DeckAddAdapter.DeckAddHolder deckAddHolder = new DeckAddAdapter.DeckAddHolder(v);
+
+        return deckAddHolder;
     }
 
     @Override

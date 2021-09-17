@@ -2,6 +2,7 @@ package ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -75,11 +76,13 @@ public class DeckAddCardActivity extends AppCompatActivity {
         };
 
         // adapter
-        adapter = new DeckAddAdapter(this, cardArrayList, listener);
+        adapter = new DeckAddAdapter(this.getApplicationContext(), cardArrayList, listener);
 
         // Layout Manager
-        binding.rvAddThisCard.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        binding.rvAddThisCard.setAdapter(adapter);
+        RecyclerView recyclerView = findViewById(R.id.rv_add_this_card);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         nameEt.addTextChangedListener(new TextWatcher() {
             @Override

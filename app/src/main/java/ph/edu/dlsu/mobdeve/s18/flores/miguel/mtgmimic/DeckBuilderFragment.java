@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ public class DeckBuilderFragment extends Fragment {
     private DeckBuilderAdapter adapter;
     private EditText et_deck_name;
     private FloatingActionButton fab_save;
+    private FirebaseAuth fAuth;
 
     @Nullable
     @Override
@@ -33,6 +35,11 @@ public class DeckBuilderFragment extends Fragment {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_deck_builder, container, false);
 
         btn_add = view.findViewById(R.id.btn_deck_builder);
+        fab_save = view.findViewById(R.id.fab_deck_builder);
+        et_deck_name = view.findViewById(R.id.et_deck_name);
+        fAuth = FirebaseAuth.getInstance();
+        DeckDBDAO deckDBDAO = new DeckDBDAOImpl(getActivity().getApplicationContext());
+
 
         btn_add.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity().getApplicationContext(), DeckAddCardActivity.class);
@@ -40,6 +47,13 @@ public class DeckBuilderFragment extends Fragment {
         });
 
         // TODO: FloatingActionButton on click (save)
+        fab_save.setOnClickListener(v ->{
+            Deck deck = new Deck();
+            deck.setUsername(fAuth.getCurrentUser().getEmail());
+            deck.setDeckname(et_deck_name.getText().toString());
+            deck.setCards("Sample");
+            deckDBDAO.addDeck(deck);
+        });
 
         // populate list
         cardArrayList = new ArrayList<>();

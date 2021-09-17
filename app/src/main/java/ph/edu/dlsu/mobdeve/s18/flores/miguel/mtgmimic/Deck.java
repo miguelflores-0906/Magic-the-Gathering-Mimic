@@ -8,7 +8,7 @@ public class Deck {
 
     private String username;
     private String deckname;
-
+    private String cards;
     private ArrayList<io.magicthegathering.javasdk.resource.Card> decklist;
 
     public Deck()
@@ -20,6 +20,13 @@ public class Deck {
     {
         this.username = username;
         this.deckname = deckname;
+    }
+
+    public Deck(String username, String deckname, String cards)
+    {
+        this.username = username;
+        this.deckname = deckname;
+        this.cards = cards;
     }
 
     public Deck(String username, String deckname, ArrayList<io.magicthegathering.javasdk.resource.Card> decklist) {
@@ -47,4 +54,12 @@ public class Deck {
     public void setUsername(String username){ this.username = username;}
 
     public void setDecklist(ArrayList<Card> decklist){this.decklist = decklist;}
+
+    public String getCards() {
+        return cards;
+    }
+
+    public void setCards(String cards) {
+        this.cards = cards;
+    }
 }
