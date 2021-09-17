@@ -31,7 +31,7 @@ public class DeckBuilderAdapter extends RecyclerView.Adapter<DeckBuilderAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull  DeckBuilderAdapter.DeckBuilderViewHolder holder, int position) {
-        holder.tv_deck_builder_qty.setText(cardArrayList.get(position).getQty());
+        holder.tv_deck_builder_qty.setText(Integer.toString(cardArrayList.get(position).getQty()));
         holder.tv_deck_builder_name.setText(cardArrayList.get(position).getName());
     }
 

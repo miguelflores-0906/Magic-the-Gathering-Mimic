@@ -17,12 +17,11 @@ public class DeckAddAdapter extends RecyclerView.Adapter<DeckAddAdapter.DeckAddH
 
     private Context context;
     private ArrayList<Card> cardArrayList;
-    private RecyclerViewClickListener listener;
+    private ItemClickListener listener;
 
-    public DeckAddAdapter(Context context, ArrayList<Card> cardArrayList, RecyclerViewClickListener listener) {
-        this.context = context;
+    public DeckAddAdapter(ArrayList<Card> cardArrayList, ItemClickListener clickListener) {
         this.cardArrayList = cardArrayList;
-        this.listener = listener;
+        this.listener = clickListener;
     }
 
 
@@ -37,6 +36,10 @@ public class DeckAddAdapter extends RecyclerView.Adapter<DeckAddAdapter.DeckAddH
     @Override
     public void onBindViewHolder(@NonNull DeckAddAdapter.DeckAddHolder holder, int position) {
         holder.tv_cardnames.setText(cardArrayList.get(position).getName());
+
+        holder.itemView.setOnClickListener(v -> {
+            listener.onItemClick(cardArrayList.get(position));
+        });
     }
 
     public interface RecyclerViewClickListener {
@@ -53,7 +56,7 @@ public class DeckAddAdapter extends RecyclerView.Adapter<DeckAddAdapter.DeckAddH
         notifyDataSetChanged();
     }
 
-    protected class DeckAddHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    protected class DeckAddHolder extends RecyclerView.ViewHolder {
         // Text Views
         TextView tv_cardnames;
 
@@ -61,13 +64,11 @@ public class DeckAddAdapter extends RecyclerView.Adapter<DeckAddAdapter.DeckAddH
             super(v);
 
             tv_cardnames = v.findViewById(R.id.tv_cardnames);
-            v.setOnClickListener(this);
         }
+    }
 
 
-        @Override
-        public void onClick(View v) {
-            listener.onClick(v, getAdapterPosition());
-        }
+    public interface ItemClickListener {
+        public void onItemClick(Card card);
     }
 }
