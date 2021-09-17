@@ -1,6 +1,7 @@
 package ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -20,15 +21,17 @@ public class DeckBuilderAdapter extends RecyclerView.Adapter<DeckBuilderAdapter.
         this.context = context;
     }
 
-    @NonNull
     @Override
-    public DeckBuilderViewHolder onCreateViewHolder(@NonNull  ViewGroup parent, int viewType) {
-        return null;
+    public DeckBuilderAdapter.DeckBuilderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_deck_builder, parent, false);
+        DeckBuilderAdapter.DeckBuilderViewHolder deckBuilderViewHolder = new DeckBuilderAdapter.DeckBuilderViewHolder(v);
+
+        return deckBuilderViewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull  DeckBuilderAdapter.DeckBuilderViewHolder holder, int position) {
-        holder.tv_deck_builder_qty.setText(cardArrayList.get(position).getQty());
+        holder.tv_deck_builder_qty.setText(Integer.toString(cardArrayList.get(position).getQty()));
         holder.tv_deck_builder_name.setText(cardArrayList.get(position).getName());
     }
 

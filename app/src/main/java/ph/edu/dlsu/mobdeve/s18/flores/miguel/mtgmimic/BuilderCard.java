@@ -22,4 +22,11 @@ public class BuilderCard {
     public int getQty() {
         return qty;
     }
+
+    @Override
+    public String toString() {
+        return (name + "\n"
+                + multiverseId + "\n"
+                + qty + "\n");
+    }
 }

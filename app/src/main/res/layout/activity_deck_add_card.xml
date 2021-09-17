@@ -52,12 +52,29 @@
 
         android:layout_marginTop="20dp"/>
 
+    <TextView
+        android:id="@+id/tv_add_this_card_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_add_this_card"
+
+        android:text="Card name will display here after click"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"/>
+
+
     <EditText
         android:id="@+id/et_add_this_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        app:layout_constraintTop_toBottomOf="@id/tv_add_this_card"
+        app:layout_constraintTop_toBottomOf="@id/tv_add_this_card_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
 
@@ -69,7 +86,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        app:layout_constraintTop_toBottomOf="@id/et_add_this_card"
+        app:layout_constraintTop_toBottomOf="@id/et_add_this_card_qty"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
 
@@ -80,7 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        app:layout_constraintTop_toBottomOf="@id/rv_add_this_card"
+        app:layout_constraintTop_toBottomOf="@id/et_add_this_card"
         app:layout_constraintStart_toStartOf="parent"
 
         android:text="Quantity: "
@@ -95,14 +112,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        app:layout_constraintTop_toBottomOf="@id/rv_add_this_card"
+        app:layout_constraintTop_toBottomOf="@id/et_add_this_card"
         app:layout_constraintStart_toEndOf="@id/tv_add_this_card_qty"
 
         android:hint="4"
         android:textSize="20sp"
 
         android:layout_marginTop="10dp"/>
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
