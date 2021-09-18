@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = findViewById(R.id.nav_master_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        TextView navHeaderUser = findViewById(R.id.tv_nav_header_username);
+//        navHeaderUser.setText(firebaseAuth.getCurrentUser().getDisplayName());
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,toolbar,
                 R.string.navigation_drawer_open,R.string.navigation_drawer_close);

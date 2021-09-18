@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import io.magicthegathering.javasdk.resource.Card;
+
 public class DeckSocialAdapter extends RecyclerView.Adapter<DeckSocialAdapter.DSViewHolder> {
 
     private ArrayList<Deck> deckArrayList;
