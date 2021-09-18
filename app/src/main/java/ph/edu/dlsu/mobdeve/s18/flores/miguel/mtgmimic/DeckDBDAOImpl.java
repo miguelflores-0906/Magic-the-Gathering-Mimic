@@ -68,15 +68,12 @@ public class DeckDBDAOImpl implements DeckDBDAO {
     }
 
     @Override
-    public ArrayList<Deck> getUserDecks(String username) {
+    public ArrayList<Deck> getUserDecks(String uname) {
         ArrayList<Deck> result = new ArrayList<>();
 
         database = decksdb.getReadableDatabase();
 
-
-        String queryString = "SELECT * FROM " + DecksDB.TABLE_DECKS + " WHERE " + DecksDB.DECKS_USERNAME + " = '\"+username+\"'";
-
-        Cursor cursor = database.rawQuery(queryString, null);
+        Cursor cursor = database.rawQuery("SELECT * FROM DECKS WHERE username = '" + uname + "'" , null);
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
@@ -98,4 +95,35 @@ public class DeckDBDAOImpl implements DeckDBDAO {
 
         return result;
     }
+
+    @Override
+    public ArrayList<Deck> getSocialDecks(String uname) {
+        ArrayList<Deck> result = new ArrayList<>();
+
+        database = decksdb.getReadableDatabase();
+
+        Cursor cursor = database.rawQuery("SELECT * FROM DECKS WHERE username IS NOT = '" + uname + "'" , null);
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast()) {
+            Deck temp = new Deck();
+            temp.setUsername(cursor.getString(0));
+            temp.setDeckname(cursor.getString(1));
+            temp.setCards(cursor.getString(2));
+            result.add(temp);
+            cursor.moveToNext();
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        if (database != null) {
+            decksdb.close();
+        }
+
+        return result;
+    }
+
+
 }

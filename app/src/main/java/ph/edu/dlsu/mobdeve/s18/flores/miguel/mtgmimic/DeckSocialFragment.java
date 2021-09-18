@@ -31,7 +31,9 @@ public class DeckSocialFragment extends Fragment implements DeckSocialAdapter.It
 
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_deck_social, container, false);
 
-        adapter = new DeckSocialAdapter(deckArrayList, this::onItemClick);
+        DeckDBDAO deckDBDAO = new DeckDBDAOImpl(getContext());
+
+        adapter = new DeckSocialAdapter(deckDBDAO.getDecks(), this::onItemClick);
 
         EditText et = view.findViewById(R.id.et_searchbar_social);
 

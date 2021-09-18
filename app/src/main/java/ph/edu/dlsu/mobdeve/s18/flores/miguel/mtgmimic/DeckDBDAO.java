@@ -6,4 +6,5 @@ public interface DeckDBDAO {
     long addDeck (Deck deck);
     ArrayList<Deck> getDecks();
     ArrayList<Deck> getUserDecks(String username);
+    ArrayList<Deck> getSocialDecks(String username);
 }
