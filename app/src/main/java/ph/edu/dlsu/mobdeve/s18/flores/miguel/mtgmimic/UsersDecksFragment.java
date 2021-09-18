@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic.databinding.FragmentUsersDecksBinding;
@@ -23,6 +25,7 @@ public class UsersDecksFragment extends Fragment {
 
     private ArrayList<Deck> deckArrayList;
     private UserDecklistAdapter adapter;
+    private FirebaseAuth firebaseAuth;
 
     @Nullable
     @Override
@@ -30,9 +33,12 @@ public class UsersDecksFragment extends Fragment {
 
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_users_decks, container, false);
 
-        DeckDAO deckDAO = new DeckDAOImpl(getContext());
+        firebaseAuth = FirebaseAuth.getInstance();
+        String temp = firebaseAuth.getCurrentUser().getEmail();
+        System.out.println(temp);
+        DeckDBDAO deckDBDAO = new DeckDBDAOImpl(getContext());
 
-        deckArrayList = DeckHelper.loadDecks();
+        deckArrayList = deckDBDAO.getUserDecks(temp);
 
         adapter = new UserDecklistAdapter(deckArrayList, this::onItemClick);
 

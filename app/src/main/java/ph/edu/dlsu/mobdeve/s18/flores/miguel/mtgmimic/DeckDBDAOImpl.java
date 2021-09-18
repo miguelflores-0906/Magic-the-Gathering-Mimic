@@ -23,7 +23,7 @@ public class DeckDBDAOImpl implements DeckDBDAO{
 
         values.put(DecksDB.DECKS_USERNAME, deck.getUsername());
         values.put(DecksDB.DECKS_DECKNAME, deck.getDeckname());
-        values.put(DecksDB.DECKS_CARDS, "cards string placeholder");
+        values.put(DecksDB.DECKS_CARDS, deck.getCards());
 
         database = decksdb.getWritableDatabase();
 
@@ -79,7 +79,7 @@ public class DeckDBDAOImpl implements DeckDBDAO{
         ArrayList<Deck> decks = null;
 
         String query = "SELECT * from " + DecksDB.TABLE_DECKS +
-                " where " + DecksDB.DECKS_USERNAME + " = " + username;
+                " where " + DecksDB.DECKS_USERNAME + " is " + username;
 
         Cursor cursor = null;
 

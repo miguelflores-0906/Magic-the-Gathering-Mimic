@@ -41,7 +41,7 @@ public class DeckBuilderFragment extends Fragment {
         fab_save = view.findViewById(R.id.fab_deck_builder);
         et_deck_name = view.findViewById(R.id.et_deck_name);
         fAuth = FirebaseAuth.getInstance();
-//        DeckDBDAO deckDBDAO = new DeckDBDAOImpl(getActivity().getApplicationContext());
+        DeckDBDAO deckDBDAO = new DeckDBDAOImpl(getActivity().getApplicationContext());
 
 
         btn_add.setOnClickListener(v -> {
@@ -51,20 +51,14 @@ public class DeckBuilderFragment extends Fragment {
 
         // TODO: FloatingActionButton on click (save)
         fab_save.setOnClickListener(v ->{
-//            Deck deck = new Deck();
-//            deck.setUsername(fAuth.getCurrentUser().getEmail());
-//            deck.setDeckname(et_deck_name.getText().toString());
-//            deck.setCards("Sample");
-//            deckDBDAO.addDeck(deck);
-
-//            if (cardArrayList.isEmpty()) {
-//                Toast.makeText(getActivity().getApplicationContext(), "Deck is empty", Toast.LENGTH_SHORT).show();
-//            }
-//            else {
-//                for (BuilderCard card : cardArrayList) {
-//                    System.out.println(card.toString());
-//                }
-//            }
+            if (cardArrayList.isEmpty()) {
+                Toast.makeText(getActivity().getApplicationContext(), "Deck is empty", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                for (BuilderCard card : cardArrayList) {
+                    System.out.println(card.toString());
+                }
+            }
 
             /**
              * For every card in the list
@@ -85,6 +79,11 @@ public class DeckBuilderFragment extends Fragment {
             System.out.println(sb.toString());
 
             // TODO: db stuff
+            Deck deck = new Deck();
+            deck.setUsername(fAuth.getCurrentUser().getEmail());
+            deck.setDeckname(et_deck_name.getText().toString());
+            deck.setCards(sb.toString());
+            deckDBDAO.addDeck(deck);
         });
 
         // adapter
