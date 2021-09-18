@@ -70,7 +70,6 @@ public class DeckDBDAOImpl implements DeckDBDAO {
     @Override
     public ArrayList<Deck> getUserDecks(String username) {
         ArrayList<Deck> result = new ArrayList<>();
-        String[] columns = {DecksDB.DECKS_USERNAME, DecksDB.DECKS_DECKNAME, DecksDB.DECKS_CARDS};
 
         database = decksdb.getReadableDatabase();
 

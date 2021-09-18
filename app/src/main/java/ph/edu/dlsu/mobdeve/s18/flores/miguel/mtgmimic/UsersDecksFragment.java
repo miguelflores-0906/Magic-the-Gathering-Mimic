@@ -39,24 +39,28 @@ public class UsersDecksFragment extends Fragment {
         System.out.println(temp);
         DeckDBDAO deckDBDAO = new DeckDBDAOImpl(getContext());
 
-        deckArrayList = deckDBDAO.getUserDecks(temp);
-        sample = DeckHelper.loadDecks();
+        sample = deckDBDAO.getDecks();
 
-        System.out.println(deckArrayList.get(0).getDeckname());
-
+        for(int i = 0; i < sample.size(); i++)
+        {
+            System.out.println(sample.get(i).getUsername());
+            System.out.println(sample.get(i).getDeckname());
+            System.out.println(sample.get(i).getCards());
+        }
         adapter = new UserDecklistAdapter(sample, this::onItemClick);
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_userdecks);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerView.setAdapter(adapter);
         return view;
+
     }
 
     public void onItemClick(Deck deck) {
-        Intent intent = new Intent(getActivity().getApplicationContext(), DeckDetailsActivity.class);
+        Intent intent = new Intent(getContext(), DeckDetailsActivity.class);
         intent.putExtra("username", deck.getUsername());
         intent.putExtra("deckname", deck.getDeckname());
-//        intent.putExtra("decklist", deck.getDecklist());
+        intent.putExtra("decklist", deck.getCards());
         startActivity(intent);
     }
 

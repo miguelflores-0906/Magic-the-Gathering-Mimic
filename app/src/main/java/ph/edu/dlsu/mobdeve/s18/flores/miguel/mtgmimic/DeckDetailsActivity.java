@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,18 +23,16 @@ import ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic.databinding.ActivityDeckDe
 public class DeckDetailsActivity extends AppCompatActivity implements MasterCardlistAdapter.ItemClickListener {
     private ActivityDeckDetailsBinding binding;
     private ArrayList<Card> cardArrayList;
+    private ArrayList<Card> finalCardArrayList;
+    private ArrayList<Integer> qtyList;
     private MasterCardlistAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_deck_details);
-
-        TextView username = findViewById(R.id.tv_deckdetails_author);
-        TextView deckname = findViewById(R.id.tv_deckdetails_dname);
-
         String name = "temp_name";
         String dname = "temp_dname";
+        String cards = "temp_cards";
 
         Bundle extras = getIntent().getExtras();
 
@@ -41,49 +40,64 @@ public class DeckDetailsActivity extends AppCompatActivity implements MasterCard
         if (extras != null) {
             name = extras.getString("username");
             dname = extras.getString("deckname");
+            cards = extras.getString("decklist");
         }
+
+        String finalCards = cards;
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                cardArrayList = destring(finalCards);
+                qtyList = getQtyList(finalCards);
+
+                for(int i = 0; i < cardArrayList.size(); i++)
+                {
+                    int j = qtyList.get(i);
+
+                    for(int k = 0; k < j; k++)
+                    {
+                        finalCardArrayList.add(cardArrayList.get(i));
+                    }
+                }
+            }
+        });
+
+
+        setContentView(R.layout.activity_deck_details);
+
+        TextView username = findViewById(R.id.tv_deckdetails_author);
+        TextView deckname = findViewById(R.id.tv_deckdetails_dname);
+
 
         username.setText(name);
         deckname.setText(dname);
 
+
         // Recycler View
 
-//        cardArrayList = CustomDataHelper.loadCards();
+  //      cardArrayList = CustomDataHelper.loadCards();
 
         // call API to get all standard 2022 cards
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // Adventures in the Forgotten Realms
-                MtgSet afr = SetAPI.getSet("AFR");
-                List<Card> afrCards = afr.getCards();
 
-                // Strixhaven
-                MtgSet stx = SetAPI.getSet("STX");
-                List<Card> stxCards = stx.getCards();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                cardArrayList = destring(finalCards);
+//                qtyList = getQtyList(finalCards);
+//
+//                for(int i = 0; i < cardArrayList.size(); i++)
+//                {
+//                    int j = qtyList.get(i);
+//
+//                    for(int k = 0; k < j; k++)
+//                    {
+//                        finalCardArrayList.add(cardArrayList.get(i));
+//                    }
+//                }
+//            }
+//        }).start();
 
-                // Kaldheim
-                MtgSet khm = SetAPI.getSet("KHM");
-                List<Card> khmCards = khm.getCards();
-
-                // Zendikar Rising
-                MtgSet znr = SetAPI.getSet("ZNR");
-                List<Card> znrCards = znr.getCards();
-
-                // Arena Base Set
-                MtgSet anb = SetAPI.getSet("ANB");
-                List<Card> anbCards = anb.getCards();
-
-                // add each set to the arraylist
-                cardArrayList.addAll(afrCards);
-                cardArrayList.addAll(stxCards);
-                cardArrayList.addAll(khmCards);
-                cardArrayList.addAll(znrCards);
-                cardArrayList.addAll(anbCards);
-            }
-        }).start();
-        
-        adapter = new MasterCardlistAdapter(cardArrayList, this);
+        adapter = new MasterCardlistAdapter(finalCardArrayList, this);
 
         RecyclerView recyclerView = findViewById(R.id.rv_deckdetailscards);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -117,5 +131,63 @@ public class DeckDetailsActivity extends AppCompatActivity implements MasterCard
     public void onDestroy() {
         super.onDestroy();
         binding = null;
+    }
+
+    public ArrayList<Card> destring(String dbData) {
+        ArrayList<Integer> multiverseList = new ArrayList<>();
+        ArrayList<Card> allCards = new ArrayList<>();
+
+        // split the db data into each card id and qty
+        // array would look like this: {id-qty, id-qty, id-qty}
+        String[] cardAndQty = dbData.split(",");
+
+        // get each card id from cardAndQty
+        /**
+         * temp will hold two values only, the result when you split the String
+         * "id-qty" at "-":
+         * temp[0] = "id"
+         * parse temp[0] into an int then add to the ArrayList
+         * */
+        String[] temp = new String[2];
+
+        for (String s : cardAndQty) {
+            temp = s.split("-");
+            multiverseList.add(Integer.parseInt(temp[0]));
+        }
+
+        /**
+         * This next bit will run through the list and get each card and add
+         * them to the arraylist
+         * */
+        for (int i : multiverseList) {
+            Card c = CardAPI.getCard(i);
+            allCards.add(c);
+        }
+
+        return allCards;
+    }
+
+    public ArrayList<Integer> getQtyList(String dbData) {
+        ArrayList<Integer> allQty = new ArrayList<>();
+
+        // split the db data into each card id and qty
+        // array would look like this: {id-qty, id-qty, id-qty}
+        String[] cardAndQty = dbData.split(",");
+
+        // get each card qty from cardAndQty
+        /**
+         * temp will hold two values only, the result when you split the String
+         * "id-qty" at "-":
+         * temp[1] = "qty"
+         * parse temp[1] into an int then add to the ArrayList
+         * */
+        String[] temp = new String[2];
+
+        for (String s : cardAndQty) {
+            temp = s.split("-");
+            allQty.add(Integer.parseInt(temp[1]));
+        }
+
+        return allQty;
     }
 }

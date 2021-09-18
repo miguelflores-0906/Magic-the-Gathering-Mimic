@@ -36,7 +36,7 @@ public class CardStatsActivity extends AppCompatActivity {
 
         ArrayList<PieEntry> percentInvEntries = new ArrayList<>();
         percentInvEntries.add(new PieEntry(0.1f, "Selected Card"));
-        percentInvEntries.add(new PieEntry(0.9f, "Rest of your Cards your Decks"));
+        percentInvEntries.add(new PieEntry(0.9f, "Rest of your Cards your Inventory"));
 
         ArrayList<PieEntry> percentDeckEntries = new ArrayList<>();
         percentDeckEntries.add(new PieEntry(0.1f, "Selected Card"));

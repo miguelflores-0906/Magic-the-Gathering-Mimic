@@ -65,15 +65,22 @@
         <com.github.mikephil.charting.charts.BarChart
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="175dp"
             android:id="@+id/barchart_typedist"
             />
 
-<!--        <com.github.mikephil.charting.charts.BarChart-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="175dp"-->
-<!--            android:id="@+id/barchart_setdist"-->
-<!--            />-->
+        <com.github.mikephil.charting.charts.BarChart
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="175dp"
+            android:id="@+id/barchart_colordist"
+            />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="175dp"
+            android:id="@+id/barchart_cmcdist"
+            />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
