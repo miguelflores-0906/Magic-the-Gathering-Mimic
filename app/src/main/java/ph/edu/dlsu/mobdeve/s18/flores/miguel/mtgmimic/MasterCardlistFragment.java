@@ -2,6 +2,7 @@ package ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -29,9 +30,10 @@ import ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic.databinding.FragmentMaster
 public class MasterCardlistFragment extends Fragment implements MasterCardlistAdapter.ItemClickListener {
 
     private FragmentMasterCardlistBinding binding;
-    private ArrayList<io.magicthegathering.javasdk.resource.Card> cardArrayList = new ArrayList<>();
+    private ArrayList<io.magicthegathering.javasdk.resource.Card> cardArrayList;
     private MasterCardlistAdapter adapter;
     private List<io.magicthegathering.javasdk.resource.Card> cardList;
+    private Handler mHandler = new Handler();
 
     @Nullable
     @Override
@@ -39,14 +41,34 @@ public class MasterCardlistFragment extends Fragment implements MasterCardlistAd
 
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_master_cardlist, container, false);
 
+        cardArrayList = new ArrayList<>();
+
+        Toast.makeText(getActivity().getApplicationContext(),
+                "Please wait for cards to load",
+                Toast.LENGTH_SHORT).show();
         // call API to get all standard 2022 cards
-        if (cardArrayList.isEmpty()) {
-            getStandardCards();
-        }
-        
-        if (cardArrayList.isEmpty()) {
-            System.out.println("it no work");
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // Adventures in the Forgotten Realms
+                MtgSet afr = SetAPI.getSet("AFR");
+                System.out.println("AFR loaded");
+//                List<Card> afrCards = afr.getCards();
+//
+//                cardArrayList.addAll(afrCards);
+                cardArrayList = (ArrayList<Card>) afr.getCards();
+                System.out.println("all AFR cards loaded");
+
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.updateList(cardArrayList);
+                    }
+                });
+            }
+        }).start();
+
+        System.out.println("this is outside");
 
         adapter = new MasterCardlistAdapter(cardArrayList, this::onItemClick);
 
@@ -129,6 +151,13 @@ public class MasterCardlistFragment extends Fragment implements MasterCardlistAd
 
                 cardArrayList.addAll(afrCards);
                 System.out.println("all AFR cards loaded");
+
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.updateList(cardArrayList);
+                    }
+                });
             }
         }).start();
     }

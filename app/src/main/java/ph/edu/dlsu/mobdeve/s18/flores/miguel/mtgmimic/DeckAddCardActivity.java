@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -34,6 +35,7 @@ public class DeckAddCardActivity extends AppCompatActivity implements DeckAddAda
     private DeckAddAdapter.RecyclerViewClickListener listener;
     private DeckAddAdapter adapter;
     private TextView tv_cardName;
+    private Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +70,30 @@ public class DeckAddCardActivity extends AppCompatActivity implements DeckAddAda
             }
         });
 
+        Toast.makeText(getApplicationContext(),
+                "Wait for cards to load",
+                Toast.LENGTH_SHORT).show();
         // load cards
-        getStandardCards();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // Adventures in the Forgotten Realms
+                MtgSet afr = SetAPI.getSet("AFR");
+                System.out.println("AFR loaded");
+//                List<Card> afrCards = afr.getCards();
+//
+//                cardArrayList.addAll(afrCards);
+                cardArrayList = (ArrayList<Card>) afr.getCards();
+                System.out.println("all AFR cards loaded");
+
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.updateList(cardArrayList);
+                    }
+                });
+            }
+        }).start();
 
         // adapter
         adapter = new DeckAddAdapter(cardArrayList, this);

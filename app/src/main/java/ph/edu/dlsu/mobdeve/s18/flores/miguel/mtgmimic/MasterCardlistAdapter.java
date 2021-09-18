@@ -74,4 +74,11 @@ public class MasterCardlistAdapter
     public interface ItemClickListener {
         public void onItemClick(Card card);
     }
+
+
+    public void updateList(ArrayList<Card> newList) {
+        cardArrayList.clear();
+        cardArrayList.addAll(newList);
+        notifyDataSetChanged();
+    }
 }

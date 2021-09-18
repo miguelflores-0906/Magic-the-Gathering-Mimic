@@ -71,4 +71,10 @@ public class DeckAddAdapter extends RecyclerView.Adapter<DeckAddAdapter.DeckAddH
     public interface ItemClickListener {
         public void onItemClick(Card card);
     }
+
+    public void updateList(ArrayList<Card> newList) {
+        cardArrayList.clear();
+        cardArrayList.addAll(newList);
+        notifyDataSetChanged();
+    }
 }

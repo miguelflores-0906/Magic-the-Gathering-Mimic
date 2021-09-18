@@ -33,7 +33,9 @@ public class DeckSocialFragment extends Fragment implements DeckSocialAdapter.It
 
         DeckDBDAO deckDBDAO = new DeckDBDAOImpl(getContext());
 
-        adapter = new DeckSocialAdapter(deckDBDAO.getDecks(), this::onItemClick);
+        deckArrayList = deckDBDAO.getDecks();
+
+        adapter = new DeckSocialAdapter(deckArrayList, this::onItemClick);
 
         EditText et = view.findViewById(R.id.et_searchbar_social);
 
@@ -78,6 +80,7 @@ public class DeckSocialFragment extends Fragment implements DeckSocialAdapter.It
         Intent intent = new Intent(getActivity().getApplicationContext(), DeckDetailsSocialActivity.class);
         intent.putExtra("deckName", deck.getDeckname());
         intent.putExtra("username", deck.getUsername());
+        intent.putExtra("cards", deck.getCards());
         startActivity(intent);
     }
 }
