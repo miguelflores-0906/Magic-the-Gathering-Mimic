@@ -8,12 +8,11 @@ import android.database.sqlite.SQLiteException;
 
 import java.util.ArrayList;
 
-public class DeckDBDAOImpl implements DeckDBDAO{
+public class DeckDBDAOImpl implements DeckDBDAO {
     private SQLiteDatabase database;
     private DecksDB decksdb;
 
-    public DeckDBDAOImpl(Context context)
-    {
+    public DeckDBDAOImpl(Context context) {
         decksdb = new DecksDB(context);
     }
 
@@ -29,8 +28,7 @@ public class DeckDBDAOImpl implements DeckDBDAO{
 
         long id = database.insert(DecksDB.TABLE_DECKS, null, values);
 
-        if(database != null)
-        {
+        if (database != null) {
             decksdb.close();
         }
 
@@ -45,28 +43,24 @@ public class DeckDBDAOImpl implements DeckDBDAO{
         database = decksdb.getReadableDatabase();
 
         Cursor cursor = database.query(DecksDB.TABLE_DECKS, columns,
-                null, null, null, null,null);
+                null, null, null, null, null);
 
         cursor.moveToFirst();
 
-        while(!cursor.isAfterLast())
-        {
+        while (!cursor.isAfterLast()) {
             Deck temp = new Deck();
             temp.setUsername(cursor.getString(0));
             temp.setDeckname(cursor.getString(1));
-//            temp.setEmail(cursor.getString(2));
-            //placeholder for deck string
+            temp.setCards(cursor.getString(2));
             result.add(temp);
             cursor.moveToNext();
         }
 
-        if(cursor != null)
-        {
+        if (cursor != null) {
             cursor.close();
         }
 
-        if(database != null)
-        {
+        if (database != null) {
             decksdb.close();
         }
 
@@ -75,46 +69,34 @@ public class DeckDBDAOImpl implements DeckDBDAO{
 
     @Override
     public ArrayList<Deck> getUserDecks(String username) {
-        Deck deck = null;
-        ArrayList<Deck> decks = null;
-
-        String query = "SELECT * from " + DecksDB.TABLE_DECKS +
-                " where " + DecksDB.DECKS_USERNAME + " is " + username;
-
-        Cursor cursor = null;
+        ArrayList<Deck> result = new ArrayList<>();
+        String[] columns = {DecksDB.DECKS_USERNAME, DecksDB.DECKS_DECKNAME, DecksDB.DECKS_CARDS};
 
         database = decksdb.getReadableDatabase();
 
-        try
-        {
-            cursor = database.rawQuery(query, null);
-            cursor.moveToFirst();
 
+        String queryString = "SELECT * FROM " + DecksDB.TABLE_DECKS + " WHERE " + DecksDB.DECKS_USERNAME + " = '\"+username+\"'";
 
-            while(!cursor.isAfterLast())
-            {
-                deck = new Deck();
-                deck.setUsername(cursor.getString(cursor.getColumnIndex(DecksDB.DECKS_USERNAME)));
-                deck.setDeckname(cursor.getString(cursor.getColumnIndex(DecksDB.DECKS_DECKNAME)));
-                //placeholder for card string
-                decks.add(deck);
-                cursor.moveToNext();
-            }
-        }catch (SQLiteException e)
-        {
-            return null;
+        Cursor cursor = database.rawQuery(queryString, null);
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast()) {
+            Deck temp = new Deck();
+            temp.setUsername(cursor.getString(0));
+            temp.setDeckname(cursor.getString(1));
+            temp.setCards(cursor.getString(2));
+            result.add(temp);
+            cursor.moveToNext();
         }
 
-        if(cursor != null)
-        {
+        if (cursor != null) {
             cursor.close();
         }
 
-        if(database != null)
-        {
+        if (database != null) {
             decksdb.close();
         }
 
-        return decks;
+        return result;
     }
 }

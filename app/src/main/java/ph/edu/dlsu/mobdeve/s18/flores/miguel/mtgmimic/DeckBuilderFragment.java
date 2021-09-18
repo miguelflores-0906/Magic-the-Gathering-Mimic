@@ -43,6 +43,7 @@ public class DeckBuilderFragment extends Fragment {
         fAuth = FirebaseAuth.getInstance();
         DeckDBDAO deckDBDAO = new DeckDBDAOImpl(getActivity().getApplicationContext());
 
+        System.out.println(fAuth.getCurrentUser().getDisplayName());
 
         btn_add.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity().getApplicationContext(), DeckAddCardActivity.class);
@@ -80,7 +81,7 @@ public class DeckBuilderFragment extends Fragment {
 
             // TODO: db stuff
             Deck deck = new Deck();
-            deck.setUsername(fAuth.getCurrentUser().getEmail());
+            deck.setUsername(fAuth.getCurrentUser().getDisplayName());
             deck.setDeckname(et_deck_name.getText().toString());
             deck.setCards(sb.toString());
             deckDBDAO.addDeck(deck);

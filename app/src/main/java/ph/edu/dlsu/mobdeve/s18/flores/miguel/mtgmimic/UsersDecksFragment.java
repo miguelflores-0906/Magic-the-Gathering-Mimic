@@ -24,6 +24,7 @@ import ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic.databinding.FragmentUsersD
 public class UsersDecksFragment extends Fragment {
 
     private ArrayList<Deck> deckArrayList;
+    private ArrayList<Deck> sample;
     private UserDecklistAdapter adapter;
     private FirebaseAuth firebaseAuth;
 
@@ -34,13 +35,16 @@ public class UsersDecksFragment extends Fragment {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_users_decks, container, false);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        String temp = firebaseAuth.getCurrentUser().getEmail();
+        String temp = firebaseAuth.getCurrentUser().getDisplayName();
         System.out.println(temp);
         DeckDBDAO deckDBDAO = new DeckDBDAOImpl(getContext());
 
         deckArrayList = deckDBDAO.getUserDecks(temp);
+        sample = DeckHelper.loadDecks();
 
-        adapter = new UserDecklistAdapter(deckArrayList, this::onItemClick);
+        System.out.println(deckArrayList.get(0).getDeckname());
+
+        adapter = new UserDecklistAdapter(sample, this::onItemClick);
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_userdecks);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));

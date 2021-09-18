@@ -10,7 +10,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.ArrayList;
 
@@ -65,21 +68,17 @@ public class RegisterActivity extends AppCompatActivity {
                 if(task.isSuccessful())
                 {
                     Toast.makeText(RegisterActivity.this, "Account Successfully Created!", Toast.LENGTH_SHORT).show();
-                    UserDAO userDAO = new UserDAOImpl();
-                    User user = new User();
-                    user.setUsername(usernameFB);
-                    user.setEmail(emailFB);
-                    userDAO.addUser(user);
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(usernameFB).build();
+                    user.updateProfile(profileUpdates);
                     Intent reg = new Intent(RegisterActivity.this, MainActivity.class);
-                    reg.putExtra("username", user.getUsername());
-                    reg.putExtra("email", user.getEmail());
-                    reg.putExtra("key", user.getKey());
                     startActivity(reg);
                 }
                 else
                 {
                     Toast.makeText(RegisterActivity.this, "Error : " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
+
             });
 
         });
