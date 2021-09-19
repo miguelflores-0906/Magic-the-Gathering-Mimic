@@ -81,7 +81,7 @@ public class DeckBuilderFragment extends Fragment {
 
             // TODO: db stuff
             Deck deck = new Deck();
-            deck.setUsername(fAuth.getCurrentUser().getDisplayName());
+            deck.setUsername(fAuth.getCurrentUser().getEmail());
             deck.setDeckname(et_deck_name.getText().toString());
             deck.setCards(sb.toString());
             deckDBDAO.addDeck(deck);
