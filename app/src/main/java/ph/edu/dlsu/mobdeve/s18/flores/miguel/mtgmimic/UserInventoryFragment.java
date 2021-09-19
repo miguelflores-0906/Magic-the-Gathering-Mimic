@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
 import androidx.annotation.Nullable;
@@ -16,8 +17,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import io.magicthegathering.javasdk.resource.Card;
 
@@ -30,6 +33,8 @@ public class UserInventoryFragment extends Fragment implements UserInvAdapter.It
     private UserInvAdapter adapter;
     private FloatingActionButton fab_add;
     private ArrayList<BuilderCard> builderCards;
+    private UserInvDBDAO userInvDBDAO;
+    private FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
     @Nullable
     @Override
@@ -37,13 +42,19 @@ public class UserInventoryFragment extends Fragment implements UserInvAdapter.It
 
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_user_inv, container, false);
 
+        userInvDBDAO = new UserInvDBDAOImpl(getActivity().getApplicationContext());
+
         cardArrayList = new ArrayList<>();
 
         builderCards = new ArrayList<>();
 
-        UserInvDBDAO userInvDBDAO = new UserInvDBDAOImpl();
-
         adapter = new UserInvAdapter(builderCards, this);
+
+        if (userInvDBDAO.getUserInv(fAuth.getCurrentUser().getDisplayName()) != null) {
+            builderCards = destringifyCards(userInvDBDAO.getUserInv(fAuth.getCurrentUser().getDisplayName()));
+            adapter.notifyDataSetChanged();
+        }
+
 
         EditText et = view.findViewById(R.id.et_user_inv);
 
@@ -109,7 +120,8 @@ public class UserInventoryFragment extends Fragment implements UserInvAdapter.It
                 BuilderCard existing = new BuilderCard();
 
                 for (BuilderCard card : builderCards) {
-                    if (card.getName().equalsIgnoreCase(cardName)) {
+                    if (card.getName().equalsIgnoreCase(cardName) ||
+                        card.getMultiverseId() == multiverseId) {
                         alreadyHere = true;
                         existing = card;
                     }
@@ -125,6 +137,16 @@ public class UserInventoryFragment extends Fragment implements UserInvAdapter.It
                 }
 
                 // update in database
+
+                // there is inv already
+                if (!(userInvDBDAO.getUserInv(fAuth.getCurrentUser().getDisplayName()) == null)) {
+                    userInvDBDAO.updateUserInv(fAuth.getCurrentUser().getDisplayName(), stringifyCards(builderCards));
+                    System.out.println("Updated user inventory");
+                }
+                else {
+                    userInvDBDAO.addUserInv(fAuth.getCurrentUser().getDisplayName(), stringifyCards(builderCards));
+                    System.out.println("Added user inventory");
+                }
             }
         }
     }
@@ -135,5 +157,33 @@ public class UserInventoryFragment extends Fragment implements UserInvAdapter.It
         intent.putExtra("multiverseId", card.getMultiverseId());
         startActivity(intent);
         System.out.println(card.toString());
+    }
+
+    private String stringifyCards(ArrayList<BuilderCard> cardList) {
+        StringBuilder sb = new StringBuilder();
+
+        for (BuilderCard card : cardList) {
+            sb.append(card.getMultiverseId());
+            sb.append("-");
+            sb.append(card.getQty());
+            sb.append(",");
+        }
+
+        return sb.toString();
+    }
+
+    private ArrayList<BuilderCard> destringifyCards(String s) {
+        ArrayList<BuilderCard> allCards = new ArrayList<>();
+
+        String[] cardAndQty = s.split(",");
+
+        String[] temp = new String[2];
+
+        for (String string : cardAndQty) {
+            temp = string.split("-");
+            allCards.add(new BuilderCard(Integer.parseInt(temp[0]), Integer.parseInt(temp[1])));
+        }
+
+        return allCards;
     }
 }

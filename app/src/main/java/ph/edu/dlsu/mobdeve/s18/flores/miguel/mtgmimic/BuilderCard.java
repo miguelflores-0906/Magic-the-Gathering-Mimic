@@ -11,6 +11,11 @@ public class BuilderCard {
         this.qty = qty;
     }
 
+    public BuilderCard(int multiverseId, int qty) {
+        this.multiverseId = multiverseId;
+        this.qty = qty;
+    }
+
     public BuilderCard() {
 
     }

@@ -1,6 +1,7 @@
 package ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -8,6 +9,10 @@ import android.database.sqlite.SQLiteException;
 public class UserInvDBDAOImpl implements UserInvDBDAO{
     private SQLiteDatabase database;
     private UserInvDB userInvDB;
+
+    public UserInvDBDAOImpl(Context context) {
+        userInvDB = new UserInvDB(context);
+    }
 
     @Override
     public long addUserInv(String username,String cards) {
