@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -84,9 +85,10 @@ public class UserInvCardActivity extends AppCompatActivity {
 
         // floating action button
         FloatingActionButton fab = findViewById(R.id.fab_card_details);
-
+        int finalMultiId1 = multiId;
         fab.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), CardStatsActivity.class);
+            intent.putExtra("cardID", finalMultiId1);
             startActivity(intent);
         });
 

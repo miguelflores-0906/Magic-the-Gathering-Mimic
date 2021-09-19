@@ -15,10 +15,10 @@ public class UserInvDBDAOImpl implements UserInvDBDAO{
     }
 
     @Override
-    public long addUserInv(String username,String cards) {
+    public long addUserInv(String user, String cards) {
         ContentValues values = new ContentValues();
 
-        values.put(UserInvDB.UINV_NAME, username);
+        values.put(UserInvDB.UINV_NAME, user);
         values.put(UserInvDB.UINV_CARDS, cards);
 
         database = userInvDB.getWritableDatabase();
@@ -37,16 +37,13 @@ public class UserInvDBDAOImpl implements UserInvDBDAO{
     public String getUserInv(String user) {
         String cards = "";
 
-        String query = "SELECT * from " + UserInvDB.TABLE_UINV +
-                " where " + UserInvDB.UINV_NAME + " = " + user;
-
         Cursor cursor = null;
 
         database = userInvDB.getReadableDatabase();
 
         try
         {
-            cursor = database.rawQuery(query, null);
+            cursor = database.rawQuery("SELECT cards FROM userinv WHERE username = '" + user + "'", null);
             cursor.moveToFirst();
 
 
@@ -74,7 +71,7 @@ public class UserInvDBDAOImpl implements UserInvDBDAO{
     }
 
     @Override
-    public long updateUserInv(String username, String updatedInv) {
+    public long updateUserInv(String user, String updatedInv) {
         ContentValues values = new ContentValues();
 
         values.put(UserInvDB.UINV_CARDS, updatedInv);
@@ -83,7 +80,7 @@ public class UserInvDBDAOImpl implements UserInvDBDAO{
         database = userInvDB.getWritableDatabase();
 
         int records = database.update(UserInvDB.TABLE_UINV, values, UserInvDB.UINV_NAME
-                + " = " + username, null);
+                + " = " + user, null);
 
         if(database != null)
         {
