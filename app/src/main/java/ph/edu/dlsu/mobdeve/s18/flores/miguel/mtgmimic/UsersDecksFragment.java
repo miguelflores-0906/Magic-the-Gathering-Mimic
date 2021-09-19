@@ -35,10 +35,15 @@ public class UsersDecksFragment extends Fragment {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_users_decks, container, false);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        String temp = firebaseAuth.getCurrentUser().getEmail();
+        String temp = firebaseAuth.getCurrentUser().getDisplayName();
         DeckDBDAO deckDBDAO = new DeckDBDAOImpl(getContext());
 
         sample = deckDBDAO.getUserDecks(temp);
+
+        for (Deck d : sample) {
+            System.out.println(d.getDeckname());
+        }
+
         adapter = new UserDecklistAdapter(sample, this::onItemClick);
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_userdecks);
