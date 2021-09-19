@@ -30,7 +30,7 @@ public class UserInvDBDAOImpl implements UserInvDBDAO{
 
     @Override
     public String getUserInv(String user) {
-        String cards = null;
+        String cards = "";
 
         String query = "SELECT * from " + UserInvDB.TABLE_UINV +
                 " where " + UserInvDB.UINV_NAME + " = " + user;

@@ -18,11 +18,11 @@ import java.util.List;
 import io.magicthegathering.javasdk.api.SetAPI;
 import io.magicthegathering.javasdk.resource.Card;
 import io.magicthegathering.javasdk.resource.MtgSet;
-import ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic.databinding.ActivityDeckDetailsBinding;
+import ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic.databinding.ActivityDeckDetailsSocialBinding;
 
 public class DeckDetailsSocialActivity extends AppCompatActivity implements MasterCardlistAdapter.ItemClickListener {
 
-    private DeckDetailsSocialActivity binding;
+    private ActivityDeckDetailsSocialBinding binding;
     private ArrayList<io.magicthegathering.javasdk.resource.Card> cardArrayList;
     private MasterCardlistAdapter adapter;
     private Handler mHandler = new Handler();
@@ -129,8 +129,10 @@ public class DeckDetailsSocialActivity extends AppCompatActivity implements Mast
 
         FloatingActionButton fab = findViewById(R.id.fab_deckstats);
 
+        String finalCardList = cardList;
         fab.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), DeckStatActivity.class);
+            intent.putExtra("cards", finalCardList);
             startActivity(intent);
         });
 

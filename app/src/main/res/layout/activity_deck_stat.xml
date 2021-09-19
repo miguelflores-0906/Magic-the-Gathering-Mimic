@@ -38,36 +38,36 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Average Mana Cost: "
-                android:textAlignment="center"
-                android:textSize="18dp"
-                android:textColor="@color/black"/>
-            <TextView
-                android:id="@+id/tv_manacost"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="manacost_temp"
-                android:textAlignment="center"
-                android:textSize="18dp"
-                android:textColor="@color/black"/>
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Average Mana Cost: "-->
+<!--                android:textAlignment="center"-->
+<!--                android:textSize="18dp"-->
+<!--                android:textColor="@color/black"/>-->
+<!--            <TextView-->
+<!--                android:id="@+id/tv_manacost"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="manacost_temp"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textSize="18dp"-->
+<!--                android:textColor="@color/black"/>-->
         </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="175dp"
+                android:id="@+id/piechart_typedist"
+            />
 
 <!--        <com.github.mikephil.charting.charts.BarChart-->
 <!--            android:layout_marginTop="20dp"-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="175dp"-->
-<!--            android:id="@+id/barchart_raritydist"-->
+<!--            android:id="@+id/barchart_typedist"-->
 <!--            />-->
-
-        <com.github.mikephil.charting.charts.BarChart
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="175dp"
-            android:id="@+id/barchart_typedist"
-            />
 
         <com.github.mikephil.charting.charts.BarChart
             android:layout_marginTop="20dp"

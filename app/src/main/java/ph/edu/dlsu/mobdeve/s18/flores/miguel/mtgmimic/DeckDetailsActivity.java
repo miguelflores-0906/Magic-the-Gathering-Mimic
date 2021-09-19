@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -23,16 +25,20 @@ import ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic.databinding.ActivityDeckDe
 public class DeckDetailsActivity extends AppCompatActivity implements MasterCardlistAdapter.ItemClickListener {
     private ActivityDeckDetailsBinding binding;
     private ArrayList<Card> cardArrayList;
-    private ArrayList<Card> finalCardArrayList;
-    private ArrayList<Integer> qtyList;
     private MasterCardlistAdapter adapter;
+    private Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_deck_details_social);
+
+        TextView username = findViewById(R.id.tv_sdeckdetails_author);
+        TextView deckname = findViewById(R.id.tv_sdeckdetails_dname);
+
         String name = "temp_name";
         String dname = "temp_dname";
-        String cards = "temp_cards";
+        String cardList = "";
 
         Bundle extras = getIntent().getExtras();
 
@@ -40,100 +46,117 @@ public class DeckDetailsActivity extends AppCompatActivity implements MasterCard
         if (extras != null) {
             name = extras.getString("username");
             dname = extras.getString("deckname");
-            cards = extras.getString("decklist");
+            cardList = extras.getString("decklist");
         }
-
-        String finalCards = cards;
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                cardArrayList = destring(finalCards);
-                qtyList = getQtyList(finalCards);
-
-                for(int i = 0; i < cardArrayList.size(); i++)
-                {
-                    int j = qtyList.get(i);
-
-                    for(int k = 0; k < j; k++)
-                    {
-                        finalCardArrayList.add(cardArrayList.get(i));
-                    }
-                }
-            }
-        });
-
-
-        setContentView(R.layout.activity_deck_details);
-
-        TextView username = findViewById(R.id.tv_deckdetails_author);
-        TextView deckname = findViewById(R.id.tv_deckdetails_dname);
-
 
         username.setText(name);
         deckname.setText(dname);
 
-
         // Recycler View
 
-  //      cardArrayList = CustomDataHelper.loadCards();
+        // make arrayList
+        cardArrayList = new ArrayList<>();
 
-        // call API to get all standard 2022 cards
+        ArrayList<Integer> multiverseList = new ArrayList<>();
+        ArrayList<Card> allCards = new ArrayList<>();
 
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                cardArrayList = destring(finalCards);
-//                qtyList = getQtyList(finalCards);
-//
-//                for(int i = 0; i < cardArrayList.size(); i++)
-//                {
-//                    int j = qtyList.get(i);
-//
-//                    for(int k = 0; k < j; k++)
-//                    {
-//                        finalCardArrayList.add(cardArrayList.get(i));
-//                    }
-//                }
-//            }
-//        }).start();
+        // split the db data into each card id and qty
+        // array would look like this: {id-qty, id-qty, id-qty}
+        String[] cardAndQty = cardList.split(",");
 
-        adapter = new MasterCardlistAdapter(finalCardArrayList, this);
+        // get each card id from cardAndQty
+        /**
+         * temp will hold two values only, the result when you split the String
+         * "id-qty" at "-":
+         * temp[0] = "id"
+         * parse temp[0] into an int then add to the ArrayList
+         * */
+        String[] temp = new String[2];
 
-        RecyclerView recyclerView = findViewById(R.id.rv_deckdetailscards);
+        for (String s : cardAndQty) {
+            temp = s.split("-");
+            multiverseList.add(Integer.parseInt(temp[0]));
+        }
+
+        /**
+         * This next bit will run through the list and get each card and add
+         * them to the arraylist
+         * */
+        System.out.println("Started processing cards");
+
+
+        showToast("Loading cards");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i : multiverseList) {
+                    Card c = CardAPI.getCard(i);
+                    System.out.println(c.getName());
+                    allCards.add(c);
+                }
+                System.out.println("Done processing");
+                System.out.println("These are all the cards that I found:");
+                for (Card c : allCards) {
+                    System.out.println(c.getName());
+                }
+
+                cardArrayList = allCards;
+
+                for (Card c : cardArrayList) {
+                    System.out.println("The card " + c.getName() + " is here.");
+                }
+
+
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.updateList(cardArrayList);
+                    }
+                });
+            }
+        }).start();
+
+        adapter = new MasterCardlistAdapter(cardArrayList, this);
+
+        RecyclerView recyclerView = findViewById(R.id.rv_sdeckdetailscards);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(adapter);
 
+        System.out.println("this is outside");
+
+//        if (!cardList.equalsIgnoreCase("")) {
+//            adapter.updateList(destring(cardList));
+//        }
 
         FloatingActionButton fab = findViewById(R.id.fab_deckstats);
 
+        String finalCardList = cardList;
         fab.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), DeckStatActivity.class);
+            intent.putExtra("cards", finalCardList);
             startActivity(intent);
         });
 
-        // TODO: Change to Add cards Activity
-        Button add_card_btn = findViewById(R.id.btn_add_card);
-
-        add_card_btn.setOnClickListener(v -> {
-            Intent intent = new Intent(this, AddCardsActivity.class);
-            startActivity(intent);
-        });
+//        FloatingActionButton fab_reload = findViewById(R.id.fab_reload_deck_social_details);
+//
+//        fab_reload.setOnClickListener(v -> {
+//            adapter.updateList(cardArrayList);
+//        });
     }
 
     @Override
-    public void onItemClick(io.magicthegathering.javasdk.resource.Card card) {
+    public void onItemClick(Card card) {
         Intent intent = new Intent(getApplicationContext(), CardDetailsActivity.class);
         intent.putExtra("cardName", card.getName());
+        intent.putExtra("expansion", card.getSetName());
+        intent.putExtra("type", card.getType());
+        intent.putExtra("text", card.getText());
+        intent.putExtra("imageUrl", card.getImageUrl());
+        intent.putExtra("manaCost", card.getManaCost());
         startActivity(intent);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        binding = null;
-    }
-
-    public ArrayList<Card> destring(String dbData) {
+    private ArrayList<Card> destring(String dbData) {
         ArrayList<Integer> multiverseList = new ArrayList<>();
         ArrayList<Card> allCards = new ArrayList<>();
 
@@ -159,35 +182,30 @@ public class DeckDetailsActivity extends AppCompatActivity implements MasterCard
          * This next bit will run through the list and get each card and add
          * them to the arraylist
          * */
-        for (int i : multiverseList) {
-            Card c = CardAPI.getCard(i);
-            allCards.add(c);
-        }
+        System.out.println("Started processing cards");
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i : multiverseList) {
+                    Card c = CardAPI.getCard(i);
+                    System.out.println(c.getName());
+                    allCards.add(c);
+                }
+                System.out.println("Done processing");
+                System.out.println("These are all the cards that I found:");
+                for (Card c : allCards) {
+                    System.out.println(c.getName());
+                }
+            }
+        }).start();
+
+
 
         return allCards;
     }
 
-    public ArrayList<Integer> getQtyList(String dbData) {
-        ArrayList<Integer> allQty = new ArrayList<>();
-
-        // split the db data into each card id and qty
-        // array would look like this: {id-qty, id-qty, id-qty}
-        String[] cardAndQty = dbData.split(",");
-
-        // get each card qty from cardAndQty
-        /**
-         * temp will hold two values only, the result when you split the String
-         * "id-qty" at "-":
-         * temp[1] = "qty"
-         * parse temp[1] into an int then add to the ArrayList
-         * */
-        String[] temp = new String[2];
-
-        for (String s : cardAndQty) {
-            temp = s.split("-");
-            allQty.add(Integer.parseInt(temp[1]));
-        }
-
-        return allQty;
+    private void showToast(String toast) {
+        runOnUiThread(() -> Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show());
     }
 }
