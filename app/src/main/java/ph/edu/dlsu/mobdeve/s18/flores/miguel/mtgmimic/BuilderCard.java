@@ -11,6 +11,10 @@ public class BuilderCard {
         this.qty = qty;
     }
 
+    public BuilderCard() {
+
+    }
+
     public int getMultiverseId() {
         return multiverseId;
     }
@@ -21,6 +25,10 @@ public class BuilderCard {
 
     public int getQty() {
         return qty;
+    }
+
+    public void addQty (int i) {
+        this.qty += i;
     }
 
     @Override
