@@ -51,12 +51,13 @@ public class MasterCardlistFragment extends Fragment implements MasterCardlistAd
             @Override
             public void run() {
                 // Adventures in the Forgotten Realms
-                MtgSet afr = SetAPI.getSet("AFR");
+
+                MtgSet afr = new MtgSet();
+                afr = SetAPI.getSet("AFR");
                 System.out.println("AFR loaded");
-//                List<Card> afrCards = afr.getCards();
-//
-//                cardArrayList.addAll(afrCards);
-                cardArrayList = (ArrayList<Card>) afr.getCards();
+
+                ArrayList<Card> temp = new ArrayList<>(afr.getCards());
+                cardArrayList = temp;
                 System.out.println("all AFR cards loaded");
 
                 mHandler.post(new Runnable() {

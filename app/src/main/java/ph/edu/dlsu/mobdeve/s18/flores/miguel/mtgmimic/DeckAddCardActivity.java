@@ -78,7 +78,8 @@ public class DeckAddCardActivity extends AppCompatActivity implements DeckAddAda
             @Override
             public void run() {
                 // Adventures in the Forgotten Realms
-                MtgSet afr = SetAPI.getSet("AFR");
+                MtgSet afr = new MtgSet();
+                afr = SetAPI.getSet("AFR");
                 System.out.println("AFR loaded");
 //                List<Card> afrCards = afr.getCards();
 //

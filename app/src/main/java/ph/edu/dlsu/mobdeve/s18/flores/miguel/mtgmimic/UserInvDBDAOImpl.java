@@ -79,8 +79,7 @@ public class UserInvDBDAOImpl implements UserInvDBDAO{
 
         database = userInvDB.getWritableDatabase();
 
-        int records = database.update(UserInvDB.TABLE_UINV, values, UserInvDB.UINV_NAME
-                + " = " + user, null);
+        int records = database.update(UserInvDB.TABLE_UINV, values, UserInvDB.UINV_NAME + " = '" + user + "'", null);
 
         if(database != null)
         {

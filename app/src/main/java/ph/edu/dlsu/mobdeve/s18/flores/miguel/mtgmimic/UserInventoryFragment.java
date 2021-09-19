@@ -2,7 +2,9 @@ package ph.edu.dlsu.mobdeve.s18.flores.miguel.mtgmimic;
 
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -32,9 +34,11 @@ public class UserInventoryFragment extends Fragment implements UserInvAdapter.It
     private ArrayList<Card> allMagicCards = new ArrayList<>();
     private UserInvAdapter adapter;
     private FloatingActionButton fab_add;
+    private FloatingActionButton fab_save;
     private ArrayList<BuilderCard> builderCards;
     private UserInvDBDAO userInvDBDAO;
     private FirebaseAuth fAuth = FirebaseAuth.getInstance();
+    private Handler mHandler = new Handler();
 
     @Nullable
     @Override
@@ -50,11 +54,82 @@ public class UserInventoryFragment extends Fragment implements UserInvAdapter.It
 
         adapter = new UserInvAdapter(builderCards, this);
 
-        if (userInvDBDAO.getUserInv(fAuth.getCurrentUser().getDisplayName()) != null) {
-            builderCards = destringifyCards(userInvDBDAO.getUserInv(fAuth.getCurrentUser().getDisplayName()));
-            adapter.notifyDataSetChanged();
+        System.out.println(userInvDBDAO.getUserInv(fAuth.getCurrentUser().getDisplayName()));
+
+        if (!userInvDBDAO.getUserInv(fAuth.getCurrentUser().getDisplayName()).equalsIgnoreCase("")) {
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    ArrayList<Integer> multiverseList = new ArrayList<>();
+                    ArrayList<Card> allCards = new ArrayList<>();
+                    ArrayList<Integer> allQty = new ArrayList<>();
+                    ArrayList<BuilderCard> newList = new ArrayList<>();
+
+                    // split the db data into each card id and qty
+                    // array would look like this: {id-qty, id-qty, id-qty}
+                    String[] cardAndQty = userInvDBDAO.getUserInv(fAuth.getCurrentUser().getDisplayName()).split(",");
+
+                    // get each card id from cardAndQty
+                    /**
+                     * temp will hold two values only, the result when you split the String
+                     * "id-qty" at "-":
+                     * temp[0] = "id"
+                     * parse temp[0] into an int then add to the ArrayList
+                     * */
+                    String[] temp = new String[2];
+
+                    for (String s : cardAndQty) {
+                        temp = s.split("-");
+                        multiverseList.add(Integer.parseInt(temp[0]));
+                        allQty.add(Integer.parseInt(temp[1]));
+                    }
+
+                    System.out.println("done splitting");
+
+                    for (int i : multiverseList) {System.out.println(i);}
+                    for (int i : allQty) {System.out.println(i);}
+
+                    /**
+                     * This next bit will run through the list and get each card and add
+                     * them to the arraylist
+                     * */
+                    for (int i : multiverseList) {
+                        Card c = CardAPI.getCard(i);
+                        allCards.add(c);
+                        System.out.println("got " + c.getName());
+                    }
+
+                    /**
+                     * take each card and make them into buildercards
+                     * */
+                    for (Card c : allCards) {
+                        BuilderCard bc = new BuilderCard(c.getMultiverseid(), c.getName(), allQty.get(allCards.indexOf(c)));
+                        System.out.println(bc.toString());
+                        newList.add(bc);
+                    }
+
+                    for (BuilderCard bc : newList) {
+                        System.out.println(bc.toString());
+                    }
+
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            adapter.updateList(newList);
+                        }
+                    });
+                }
+            }).start();
+
+
+//            builderCards = destringifyCards(userInvDBDAO.getUserInv(fAuth.getCurrentUser().getDisplayName()));
+
+//            adapter.updateList(builderCards);
         }
 
+        System.out.println("This user has these cards:");
+        System.out.println(userInvDBDAO.getUserInv(fAuth.getCurrentUser().getDisplayName()));
 
 
         EditText et = view.findViewById(R.id.et_user_inv);
@@ -87,6 +162,16 @@ public class UserInventoryFragment extends Fragment implements UserInvAdapter.It
             startActivityForResult(intent, 1);
         });
 
+        fab_save = view.findViewById(R.id.fab_inv_save);
+
+        fab_save.setOnClickListener(v -> {
+            if (userInvDBDAO.getUserInv(fAuth.getCurrentUser().getDisplayName()).equalsIgnoreCase("")) {
+                userInvDBDAO.addUserInv(fAuth.getCurrentUser().getDisplayName(), stringifyCards(builderCards));
+            }
+            else {
+                userInvDBDAO.updateUserInv(fAuth.getCurrentUser().getDisplayName(), stringifyCards(builderCards));
+            }
+        });
 
         return view;
     }
@@ -140,14 +225,19 @@ public class UserInventoryFragment extends Fragment implements UserInvAdapter.It
                 // update in database
 
                 // there is inv already
-                if (!(userInvDBDAO.getUserInv(fAuth.getCurrentUser().getDisplayName()) == null)) {
-                    userInvDBDAO.updateUserInv(fAuth.getCurrentUser().getDisplayName(), stringifyCards(builderCards));
-                    System.out.println("Updated user inventory");
-                }
-                else {
-                    userInvDBDAO.addUserInv(fAuth.getCurrentUser().getDisplayName(), stringifyCards(builderCards));
-                    System.out.println("Added user inventory");
-                }
+//                if (!(userInvDBDAO.getUserInv(fAuth.getCurrentUser().getDisplayName()) == null)) {
+//                    if (userInvDBDAO.updateUserInv(fAuth.getCurrentUser().getDisplayName(), stringifyCards(builderCards)) == 1) {
+//                        System.out.println("Updated user inventory");
+//                    }
+//                }
+//                else {
+//                    userInvDBDAO.addUserInv(fAuth.getCurrentUser().getDisplayName(), stringifyCards(builderCards));
+//                    System.out.println("Added user inventory");
+////                }
+//                if (userInvDBDAO.addUserInv(fAuth.getCurrentUser().getDisplayName(), stringifyCards(builderCards)) == 1) {
+//                    System.out.println("Added user inventory");
+//                }
+//                userInvDBDAO.addUserInv(fAuth.getCurrentUser().getDisplayName(),stringifyCards(builderCards));
             }
         }
     }
@@ -173,18 +263,37 @@ public class UserInventoryFragment extends Fragment implements UserInvAdapter.It
         return sb.toString();
     }
 
-    private ArrayList<BuilderCard> destringifyCards(String s) {
-        ArrayList<BuilderCard> allCards = new ArrayList<>();
-
-        String[] cardAndQty = s.split(",");
-
-        String[] temp = new String[2];
-
-        for (String string : cardAndQty) {
-            temp = string.split("-");
-            allCards.add(new BuilderCard(Integer.parseInt(temp[0]), Integer.parseInt(temp[1])));
-        }
-
-        return allCards;
-    }
+//    private ArrayList<Card> destringifyCards(String dbData) {
+//        ArrayList<Integer> multiverseList = new ArrayList<>();
+//        ArrayList<Card> allCards = new ArrayList<>();
+//
+//        // split the db data into each card id and qty
+//        // array would look like this: {id-qty, id-qty, id-qty}
+//        String[] cardAndQty = dbData.split(",");
+//
+//        // get each card id from cardAndQty
+//        /**
+//         * temp will hold two values only, the result when you split the String
+//         * "id-qty" at "-":
+//         * temp[0] = "id"
+//         * parse temp[0] into an int then add to the ArrayList
+//         * */
+//        String[] temp = new String[2];
+//
+//        for (String s : cardAndQty) {
+//            temp = s.split("-");
+//            multiverseList.add(Integer.parseInt(temp[0]));
+//        }
+//
+//        /**
+//         * This next bit will run through the list and get each card and add
+//         * them to the arraylist
+//         * */
+//        for (int i : multiverseList) {
+//            Card c = CardAPI.getCard(i);
+//            allCards.add(c);
+//        }
+//
+//        return allCards;
+//    }
 }
