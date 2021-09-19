@@ -56,8 +56,7 @@ public class MasterCardlistFragment extends Fragment implements MasterCardlistAd
                 afr = SetAPI.getSet("AFR");
                 System.out.println("AFR loaded");
 
-                ArrayList<Card> temp = new ArrayList<>(afr.getCards());
-                cardArrayList = temp;
+                cardArrayList = new ArrayList<>(afr.getCards());
                 System.out.println("all AFR cards loaded");
 
                 mHandler.post(new Runnable() {
