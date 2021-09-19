@@ -67,4 +67,24 @@ public class UserInvDBDAOImpl implements UserInvDBDAO{
 
         return cards;
     }
+
+    @Override
+    public long updateUserInv(String username, String updatedInv) {
+        ContentValues values = new ContentValues();
+
+        values.put(UserInvDB.UINV_CARDS, updatedInv);
+
+
+        database = userInvDB.getWritableDatabase();
+
+        int records = database.update(UserInvDB.TABLE_UINV, values, UserInvDB.UINV_NAME
+                + " = " + username, null);
+
+        if(database != null)
+        {
+            userInvDB.close();
+        }
+
+        return records;
+    }
 }
