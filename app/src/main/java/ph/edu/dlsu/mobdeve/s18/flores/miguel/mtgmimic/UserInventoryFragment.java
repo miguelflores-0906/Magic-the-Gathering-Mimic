@@ -41,7 +41,7 @@ public class UserInventoryFragment extends Fragment implements UserInvAdapter.It
 
         builderCards = new ArrayList<>();
 
-        CardDAO cardDAO = new CardDAOImpl(getContext());
+        UserInvDBDAO userInvDBDAO = new UserInvDBDAOImpl();
 
         adapter = new UserInvAdapter(builderCards, this);
 
@@ -123,6 +123,8 @@ public class UserInventoryFragment extends Fragment implements UserInvAdapter.It
                     builderCards.add(0, new BuilderCard(multiverseId, cardName, qty));
                     adapter.notifyItemInserted(0);
                 }
+
+                // update in database
             }
         }
     }
