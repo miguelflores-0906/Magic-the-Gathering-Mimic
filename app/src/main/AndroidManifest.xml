@@ -19,6 +19,7 @@
         <activity android:name=".DeckSocialActivity" />
         <activity android:name=".UserDecksActivity" />
         <activity android:name=".UserInventoryActivity" />
+        <activity android:name=".UserInvCardActivity" />
         <activity android:name=".LoginPageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

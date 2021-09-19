@@ -28,15 +28,26 @@
         android:layout_below="@id/et_user_inv"
         android:layout_marginTop="20dp"
         android:id="@+id/rv_userlist"
+        android:layout_marginHorizontal="20dp"
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_inv_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/design_default_color_primary"
         android:src="@drawable/ic_add"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_margin="30dp"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_inv_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_save"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:layout_margin="30dp"/>
 
 </RelativeLayout>

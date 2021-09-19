@@ -14,8 +14,8 @@
 
     <ImageView
         android:id="@+id/iv_master_card_art"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="400dp"
+        android:layout_height="557dp"
         android:src="@drawable/nadaar"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
