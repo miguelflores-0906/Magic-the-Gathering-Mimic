@@ -50,13 +50,11 @@ public class UserInventoryFragment extends Fragment implements UserInvAdapter.It
 
         adapter = new UserInvAdapter(builderCards, this);
 
-        if (userInvDBDAO.getUserInv(fAuth.getCurrentUser().getEmail()) != null) {
-            builderCards = destringifyCards(userInvDBDAO.getUserInv(fAuth.getCurrentUser().getEmail()));
+        if (userInvDBDAO.getUserInv(fAuth.getCurrentUser().getDisplayName()) != null) {
+            builderCards = destringifyCards(userInvDBDAO.getUserInv(fAuth.getCurrentUser().getDisplayName()));
             adapter.notifyDataSetChanged();
         }
 
-
-        System.out.println(userInvDBDAO.getUserInv(fAuth.getCurrentUser().getEmail()));
 
 
         EditText et = view.findViewById(R.id.et_user_inv);
@@ -142,12 +140,12 @@ public class UserInventoryFragment extends Fragment implements UserInvAdapter.It
                 // update in database
 
                 // there is inv already
-                if (!(userInvDBDAO.getUserInv(fAuth.getCurrentUser().getEmail()) == null)) {
-                    userInvDBDAO.updateUserInv(fAuth.getCurrentUser().getEmail(), stringifyCards(builderCards));
+                if (!(userInvDBDAO.getUserInv(fAuth.getCurrentUser().getDisplayName()) == null)) {
+                    userInvDBDAO.updateUserInv(fAuth.getCurrentUser().getDisplayName(), stringifyCards(builderCards));
                     System.out.println("Updated user inventory");
                 }
                 else {
-                    userInvDBDAO.addUserInv(fAuth.getCurrentUser().getEmail(), stringifyCards(builderCards));
+                    userInvDBDAO.addUserInv(fAuth.getCurrentUser().getDisplayName(), stringifyCards(builderCards));
                     System.out.println("Added user inventory");
                 }
             }
